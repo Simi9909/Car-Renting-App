@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.RegisterFragment">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40sp"
+        android:text="@string/title"
+        android:textSize="40sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40sp"
+            android:autofillHints="Name..."
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:minWidth="250sp"
+            android:minHeight="50sp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:autofillHints="Email..."
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:minWidth="250sp"
+            android:minHeight="50sp" />
+
+        <EditText
+            android:id="@+id/et_id_card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:autofillHints="Id card number..."
+            android:hint="@string/id_card_number"
+            android:inputType="textPersonName"
+            android:minWidth="250sp"
+            android:minHeight="50sp"
+            tools:ignore="TextFields" />
+
+        <EditText
+            android:id="@+id/et_driving_licence_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:autofillHints="Driving licence number..."
+            android:hint="@string/driving_licence_number"
+            android:inputType="textPersonName"
+            android:minWidth="250sp"
+            android:minHeight="50sp" />
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:autofillHints="Phone number..."
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:minWidth="250sp"
+            android:minHeight="50sp" />
+
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:autofillHints="Address..."
+            android:hint="@string/address"
+            android:inputType="textPostalAddress"
+            android:minWidth="250sp"
+            android:minHeight="50sp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:autofillHints="Password..."
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:minWidth="250sp"
+            android:minHeight="50sp" />
+
+        <EditText
+            android:id="@+id/et_password2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:autofillHints="Password again..."
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:minWidth="250sp"
+            android:minHeight="50sp" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40sp"
+            android:text="@string/register" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
