@@ -50,7 +50,7 @@ public class LoginFragment extends Fragment {
 
 
     private void login() {
-        if (etEmail.getText().equals("admin")) {
+        if (etEmail.getText().toString().equals("admin")) {
             goToAdminPage();
         } else {
             goToCarTypesPage();

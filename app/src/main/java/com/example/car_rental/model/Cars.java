@@ -33,14 +33,6 @@ public class Cars {
         Model = model;
     }
 
-    public Integer getPrice() {
-        return Price;
-    }
-
-    public void setPrice(Integer price) {
-        Price = price;
-    }
-
     public String getEquipment() {
         return Equipment;
     }
@@ -55,5 +47,13 @@ public class Cars {
 
     public void setAvailable(Boolean available) {
         this.available = available;
+    }
+
+    public Integer getPrice() {
+        return Price;
+    }
+
+    public void setPrice(Integer price) {
+        Price = price;
     }
 }

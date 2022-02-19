@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AddNewCarFragment"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add new vehicle"
+        android:gravity="center"
+        android:layout_marginTop="25sp"
+        android:textSize="40sp"/>
+
+    <EditText
+        android:background="@null"
+        android:textSize="20sp"
+        android:paddingHorizontal="30sp"
+        android:layout_marginTop="20sp"
+        android:id="@+id/carmanufacturer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Enter car manufacturer..." />
+
+    <EditText
+        android:background="@null"
+        android:textSize="20sp"
+        android:paddingHorizontal="30sp"
+        android:layout_marginTop="20sp"
+        android:id="@+id/carmodel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Enter car model..."/>
+
+    <EditText
+        android:background="@null"
+        android:textSize="20sp"
+        android:paddingHorizontal="30sp"
+        android:layout_marginTop="20sp"
+        android:id="@+id/carprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Enter rental price..."/>
+
+    <EditText
+        android:background="@null"
+        android:textSize="20sp"
+        android:paddingHorizontal="30sp"
+        android:layout_marginTop="20sp"
+        android:id="@+id/carequipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:hint="Enter car equipment..."/>
+
+    <Button
+        android:layout_marginTop="20sp"
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_gravity="center"/>
+
+
+</LinearLayout>
