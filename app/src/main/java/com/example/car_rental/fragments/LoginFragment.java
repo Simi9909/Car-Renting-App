@@ -50,10 +50,29 @@ public class LoginFragment extends Fragment {
 
 
     private void login() {
-        /*
-         * admin -> fragment_admin
-         * user -> fragment_car_types
-         */
+        if (etEmail.getText().equals("admin")) {
+            goToAdminPage();
+        } else {
+            goToCarTypesPage();
+        }
+    }
+
+    private void goToCarTypesPage() {
+        CarTypesFragment carTypesFragment = new CarTypesFragment();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentFrame, carTypesFragment, RegisterFragment.class.getSimpleName())
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void goToAdminPage() {
+        AdminFragment adminFragment = new AdminFragment();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentFrame, adminFragment, RegisterFragment.class.getSimpleName())
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void goToRegister(){
