@@ -44,17 +44,6 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
-    Bundle bundle = new Bundle();
-
-    private void goToShowSelectedCategory() {
-        SelectionFragment selectionFragment = new SelectionFragment();
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, selectionFragment, RegisterFragment.class.getSimpleName())
-                .setReorderingAllowed(true)
-                .addToBackStack(null)
-                .commit();
-    }
-
     private void goToAddNewVehicle() {
         AddNewCarFragment addNewCarFragment = new AddNewCarFragment();
         getParentFragmentManager().beginTransaction()
@@ -64,15 +53,32 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
                 .commit();
     }
 
+    Bundle bundle = new Bundle();
+    String valueFormSpinner;
+
+    private void goToShowSelectedCategory() {
+
+        SelectionFragment selectionFragment = new SelectionFragment();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentFrame, selectionFragment, LoginFragment.class.getSimpleName())
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
+
+        selectionFragment.setArguments(bundle);
+        bundle.putString("bundleKey2", valueFormSpinner);
+
+    }
+
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        if (parent.getId() == R.id.spinner) {
-            String valueFormSpinner = parent.getItemAtPosition(pos).toString();
-            Log.d("value from spinner", valueFormSpinner);
-            bundle.putString("bundleKey", valueFormSpinner);
-        }
+
+        valueFormSpinner = parent.getItemAtPosition(pos).toString();
+        Log.d("value from spinner", valueFormSpinner);
+
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
 }
