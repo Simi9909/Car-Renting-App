@@ -28,8 +28,18 @@
     <string name="minivan">Minivan</string>
     <string name="bus">Bus</string>
     <string name="big_bus">Big Bus</string>
+    <string name="add_new_driver">Add new driver</string>
+    <string name="save">Save</string>
     <string-array name="cartypes">
         <item>All</item>
+        <item>Small car</item>
+        <item>4/5 door car</item>
+        <item>SUV</item>
+        <item>Minivan</item>
+        <item>Bus</item>
+        <item>Big bus</item>
+    </string-array>
+    <string-array name="cartypes2">
         <item>Small car</item>
         <item>4/5 door car</item>
         <item>SUV</item>

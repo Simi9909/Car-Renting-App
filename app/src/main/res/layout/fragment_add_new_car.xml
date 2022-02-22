@@ -3,75 +3,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AddNewCarFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragments.AddNewCarFragment">
 
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add new vehicle"
+        android:layout_marginTop="5sp"
         android:gravity="center"
-        android:layout_marginTop="25sp"
-        android:textSize="40sp"/>
+        android:text="Add new vehicle"
+        android:textSize="40sp" />
 
-    <EditText
-        android:background="@null"
-        android:textSize="20sp"
-        android:paddingHorizontal="30sp"
-        android:layout_marginTop="20sp"
-        android:id="@+id/carmanufacturer"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Enter car manufacturer..." />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:background="@null"
-        android:textSize="20sp"
-        android:paddingHorizontal="30sp"
-        android:layout_marginTop="20sp"
-        android:id="@+id/carmodel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Enter car model..."/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:background="@null"
-        android:textSize="20sp"
-        android:paddingHorizontal="30sp"
-        android:layout_marginTop="20sp"
-        android:id="@+id/carprice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:hint="Enter rental price..."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="Manufacturer"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-    <EditText
-        android:background="@null"
-        android:textSize="20sp"
-        android:paddingHorizontal="30sp"
-        android:layout_marginTop="20sp"
-        android:id="@+id/carequipment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:hint="Enter car equipment..."/>
+            <EditText
+                android:id="@+id/carmanufacturer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Enter car manufacturer..."
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp" />
 
-    <Button
-        android:layout_marginTop="20sp"
-        android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="Model"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/carmodel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Enter car model..."
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="235dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20sp"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="Price"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/carprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Enter rental price..."
+                android:inputType="number"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="Equipment"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/carequipment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Enter car equipment..."
+                android:inputType="textMultiLine"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/sw_availability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:minHeight="48dp"
+                android:paddingHorizontal="30sp"
+                android:text="Availability"
+                android:textSize="20sp" />
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:clickable="true"
+                android:paddingHorizontal="30sp"
+                android:text="Choose image"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/selectimage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20sp"
+                android:src="@android:drawable/ic_menu_add" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20sp"
+                android:text="Save" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

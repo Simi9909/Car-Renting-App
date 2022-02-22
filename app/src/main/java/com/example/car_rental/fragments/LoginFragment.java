@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment {
     private void goToCarTypesPage() {
         CarTypesFragment carTypesFragment = new CarTypesFragment();
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, carTypesFragment, RegisterFragment.class.getSimpleName())
+                .replace(R.id.fragmentFrame, carTypesFragment)
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
@@ -69,7 +69,7 @@ public class LoginFragment extends Fragment {
     private void goToAdminPage() {
         AdminFragment adminFragment = new AdminFragment();
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, adminFragment, RegisterFragment.class.getSimpleName())
+                .replace(R.id.fragmentFrame, adminFragment)
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
@@ -78,7 +78,7 @@ public class LoginFragment extends Fragment {
     private void goToRegister(){
         RegisterFragment registerFragment = new RegisterFragment();
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, registerFragment, RegisterFragment.class.getSimpleName())
+                .replace(R.id.fragmentFrame, registerFragment)
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();

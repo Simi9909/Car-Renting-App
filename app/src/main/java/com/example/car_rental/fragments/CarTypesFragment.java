@@ -91,7 +91,7 @@ public class CarTypesFragment extends Fragment {
         CarOptionsFragment carOptionsFragment = new CarOptionsFragment();
         carOptionsFragment.setArguments(bundle);
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, carOptionsFragment, RegisterFragment.class.getSimpleName())
+                .replace(R.id.fragmentFrame, carOptionsFragment)
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();

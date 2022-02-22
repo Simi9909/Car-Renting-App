@@ -7,11 +7,36 @@ public class User {
     private String Email;
     private String IdCardNumber;
     private String DrivingLicenceNumber;
-    private Long PhoneNumber;
+    private Integer PhoneNumber;
     private String Address;
     private String Password;
 
+    public User(Integer id, String name, String email, String idCardNumber, String drivingLicenceNumber, Integer phoneNumber, String address, String password) {
+        Id = id;
+        Name = name;
+        Email = email;
+        IdCardNumber = idCardNumber;
+        DrivingLicenceNumber = drivingLicenceNumber;
+        PhoneNumber = phoneNumber;
+        Address = address;
+        Password = password;
+    }
+
     public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "Id=" + Id +
+                ", Name='" + Name + '\'' +
+                ", Email='" + Email + '\'' +
+                ", IdCardNumber='" + IdCardNumber + '\'' +
+                ", DrivingLicenceNumber='" + DrivingLicenceNumber + '\'' +
+                ", PhoneNumber=" + PhoneNumber +
+                ", Address='" + Address + '\'' +
+                ", Password='" + Password + '\'' +
+                '}';
     }
 
     public Integer getId() {
@@ -54,11 +79,11 @@ public class User {
         DrivingLicenceNumber = drivingLicenceNumber;
     }
 
-    public Long getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return PhoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         PhoneNumber = phoneNumber;
     }
 

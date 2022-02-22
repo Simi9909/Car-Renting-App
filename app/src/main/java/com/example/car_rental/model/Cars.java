@@ -5,9 +5,43 @@ public class Cars {
     private Integer Id;
     private String Manufacturer;
     private String Model;
+    private String CarTypes;
     private Integer Price;
     private String Equipment;
     private Boolean available;
+
+    public Cars(Integer id, String manufacturer, String model, String carTypes, Integer price, String equipment, Boolean available) {
+        Id = id;
+        Manufacturer = manufacturer;
+        Model = model;
+        CarTypes = carTypes;
+        Price = price;
+        Equipment = equipment;
+        this.available = available;
+    }
+
+    public Cars() {
+    }
+
+    @Override
+    public String toString() {
+        return "Cars{" +
+                "Id=" + Id +
+                ", Manufacturer='" + Manufacturer + '\'' +
+                ", Model='" + Model + '\'' +
+                ", Price=" + Price +
+                ", Equipment='" + Equipment + '\'' +
+                ", available=" + available +
+                '}';
+    }
+
+    public String getCarType() {
+        return CarTypes;
+    }
+
+    public void setCarType(String carType) {
+        CarTypes = carType;
+    }
 
     public Integer getId() {
         return Id;

@@ -41,11 +41,19 @@
         android:text="Show selected" />
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_add_car"
         android:layout_width="235sp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30sp"
-        android:text="Add new" />
+        android:text="Add new car" />
+
+    <Button
+        android:id="@+id/btn_add_driver"
+        android:layout_width="235sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30sp"
+        android:text="Add new driver" />
 
 </LinearLayout>

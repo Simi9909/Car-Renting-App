@@ -2,6 +2,7 @@ package com.example.car_rental.fragments;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class CarOptionsFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle!=null) {
             String cartype = bundle.getString("bundleKey");
+            Log.d("bundle",cartype);
             text.setText(cartype);
         }
     }

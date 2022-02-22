@@ -18,6 +18,10 @@ import com.example.car_rental.R;
 
 public class AdminFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    private Button buttonAddNewCAar;
+    private Button buttonShowSelected;
+    private Button buttonAddNewDriver;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,25 +33,36 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private void initViews(View view) {
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        Spinner spinner = view.findViewById(R.id.spinner);
 
         spinner.setOnItemSelectedListener(this);
         String[] cartypes = getResources().getStringArray(R.array.cartypes);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.dropdownmenu, cartypes);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        Button buttonAdd = (Button) view.findViewById(R.id.btn_add);
-        Button buttonShowSelected = (Button) view.findViewById(R.id.btn_show);
+        buttonAddNewCAar = (Button) view.findViewById(R.id.btn_add_car);
+        buttonShowSelected = (Button) view.findViewById(R.id.btn_show);
+        buttonAddNewDriver = (Button) view.findViewById(R.id.btn_add_driver);
 
-        buttonAdd.setOnClickListener(view1 -> goToAddNewVehicle());
+        buttonAddNewCAar.setOnClickListener(view1 -> goToAddNewVehicle());
         buttonShowSelected.setOnClickListener(view1 -> goToShowSelectedCategory());
+        buttonAddNewDriver.setOnClickListener(view1 -> goToAddNewDriver());
 
+    }
+
+    private void goToAddNewDriver() {
+        AddDriverFragment addDriverFragment = new AddDriverFragment();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentFrame, addDriverFragment)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void goToAddNewVehicle() {
         AddNewCarFragment addNewCarFragment = new AddNewCarFragment();
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, addNewCarFragment, RegisterFragment.class.getSimpleName())
+                .replace(R.id.fragmentFrame, addNewCarFragment)
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
@@ -60,7 +75,7 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
 
         SelectionFragment selectionFragment = new SelectionFragment();
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, selectionFragment, LoginFragment.class.getSimpleName())
+                .replace(R.id.fragmentFrame, selectionFragment)
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
