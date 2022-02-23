@@ -57,32 +57,32 @@ public class CarTypesFragment extends Fragment {
     Bundle bundle = new Bundle();
 
     private void bigBus() {
-        bundle.putString("bundleKey", "bigbus");
+        bundle.putString("bundleKey", "Big bus");
         goToCarOptions();
     }
 
     private void bus() {
-        bundle.putString("bundleKey", "bus");
+        bundle.putString("bundleKey", "Bus");
         goToCarOptions();
     }
 
     private void minivan() {
-        bundle.putString("bundleKey", "minivan");
+        bundle.putString("bundleKey", "Minivan");
         goToCarOptions();
     }
 
     private void suv() {
-        bundle.putString("bundleKey", "suv");
+        bundle.putString("bundleKey", "SUV");
         goToCarOptions();
     }
 
     private void fourDoorCar() {
-        bundle.putString("bundleKey", "sedan");
+        bundle.putString("bundleKey", "4/5 door car");
         goToCarOptions();
     }
 
     private void smallCar() {
-        bundle.putString("bundleKey", "small");
+        bundle.putString("bundleKey", "Small car");
         goToCarOptions();
     }
 

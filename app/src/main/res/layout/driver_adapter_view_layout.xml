@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:gravity="center"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_id_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID card number"
+        android:gravity="center"
+        android:textSize="23sp"/>
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:text="Phone number"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_driving_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:text="Driving licence number"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:gravity="center"
+        android:textSize="23sp"/>
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_available"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Available"
+        android:gravity="center"
+        android:textSize="23sp"/>
+
+</LinearLayout>

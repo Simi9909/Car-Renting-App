@@ -18,9 +18,10 @@ import com.example.car_rental.R;
 
 public class AdminFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private Button buttonAddNewCAar;
+    private Button qbuttonAddNewCAar;
     private Button buttonShowSelected;
     private Button buttonAddNewDriver;
+    private Button buttonShowDrivers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,14 +41,25 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.dropdownmenu, cartypes);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        buttonAddNewCAar = (Button) view.findViewById(R.id.btn_add_car);
-        buttonShowSelected = (Button) view.findViewById(R.id.btn_show);
-        buttonAddNewDriver = (Button) view.findViewById(R.id.btn_add_driver);
+        buttonAddNewCAar = view.findViewById(R.id.btn_add_car);
+        buttonShowSelected = view.findViewById(R.id.btn_show);
+        buttonAddNewDriver = view.findViewById(R.id.btn_add_driver);
+        buttonShowDrivers = view.findViewById(R.id.btn_show_drivers);
 
         buttonAddNewCAar.setOnClickListener(view1 -> goToAddNewVehicle());
         buttonShowSelected.setOnClickListener(view1 -> goToShowSelectedCategory());
         buttonAddNewDriver.setOnClickListener(view1 -> goToAddNewDriver());
+        buttonShowDrivers.setOnClickListener(view1 -> goToShowDrivers());
 
+    }
+
+    private void goToShowDrivers() {
+        DriversListFragment driversListFragment = new DriversListFragment();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentFrame, driversListFragment)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void goToAddNewDriver() {

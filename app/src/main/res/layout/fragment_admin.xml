@@ -56,4 +56,12 @@
         android:layout_marginTop="30sp"
         android:text="Add new driver" />
 
+    <Button
+        android:id="@+id/btn_show_drivers"
+        android:layout_width="235sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30sp"
+        android:text="Show drivers" />
+
 </LinearLayout>

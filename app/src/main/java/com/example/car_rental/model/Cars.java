@@ -23,6 +23,13 @@ public class Cars {
     public Cars() {
     }
 
+    public Cars(String manufacturer, String model, String equipment, Integer price) {
+        Manufacturer = manufacturer;
+        Model = model;
+        Price = price;
+        Equipment = equipment;
+    }
+
     @Override
     public String toString() {
         return "Cars{" +
