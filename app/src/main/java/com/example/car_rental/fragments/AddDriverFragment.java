@@ -54,7 +54,6 @@ public class AddDriverFragment extends Fragment {
         Driver driver = null;
 
         try {
-            Log.d("ima here" , "sdf");
             driver = new Driver(0, drivername.getText().toString(),
                     idCardNumber.getText().toString(),
                     Integer.parseInt(phoneNumber.getText().toString()),

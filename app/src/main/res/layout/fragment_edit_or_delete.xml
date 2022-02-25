@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.EditOrDelete">
+
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:gravity="center"
+        android:text="Edit or Delete"
+        android:textColor="@color/black"
+        android:textSize="35sp" />
+
+    <EditText
+        android:id="@+id/ed_car_manufacture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="Manufacturer"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/ed_car_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="Model"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/ed_car_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="Price"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/ed_car_equipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="Equipment"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:textSize="25sp" />
+
+    <Switch
+        android:id="@+id/switch_car_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:minHeight="48dp"
+        android:text="Availability"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_marginTop="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_save_car_update"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="55sp"
+            android:text="Save"
+            android:textSize="25sp"/>
+
+        <Button
+            android:id="@+id/btm_delete_car"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:textSize="25sp"/>
+    </LinearLayout>
+</LinearLayout>

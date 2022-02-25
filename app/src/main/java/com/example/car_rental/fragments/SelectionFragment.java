@@ -1,6 +1,9 @@
 package com.example.car_rental.fragments;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
@@ -8,23 +11,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.example.car_rental.R;
-import com.example.car_rental.model.Cars;
-import com.example.car_rental.utils.CarListAdapter;
 import com.example.car_rental.utils.DBHelper;
-
-import java.util.List;
 
 
 public class SelectionFragment extends Fragment {
 
     ListView listView;
     String selectionvalue;
-    ArrayAdapter carsArrayAdapter;
-    List<Cars> carList;
+    static DBHelper dbHelper;
+
+    SimpleCursorAdapter simpleCursorAdapter = null;
+    SimpleCursorAdapter simpleCursorAdapter2 = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,56 +41,58 @@ public class SelectionFragment extends Fragment {
 
         listView = view.findViewById(R.id.lv_car);
 
-        DBHelper dbHelper = new DBHelper(getActivity());
+        dbHelper = new DBHelper(getActivity());
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             selectionvalue = bundle.getString("bundleKey2");
             Log.d("Success ", selectionvalue);
+
+            simpleCursorAdapter = dbHelper.populateListViewFromDB();
+            simpleCursorAdapter2 = dbHelper.populateListViewFromDB(selectionvalue);
         }
 
-        if (selectionvalue.equals("All")) {
-            carList = dbHelper.getAllCar();
+        switch (selectionvalue) {
+            case "All":
 
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (selectionvalue.equals("Small car")) {
+                listView.setAdapter(simpleCursorAdapter);
+                listView.setOnItemClickListener((parent, view1, pos, id) -> {
+                    Cursor cursor = (Cursor) simpleCursorAdapter.getItem(pos);
+                    setIntentValues(id, cursor);
+                });
+                break;
+            case "Small car":
+            case "4/5 door car":
+            case "SUV":
+            case "Minivan":
+            case "Bus":
+            case "Big bus":
 
-            carList = dbHelper.getSelectedCar(selectionvalue);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (selectionvalue.equals("4/5 door car")) {
-
-            carList = dbHelper.getSelectedCar(selectionvalue);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (selectionvalue.equals("SUV")) {
-
-            carList = dbHelper.getSelectedCar(selectionvalue);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (selectionvalue.equals("Minivan")) {
-
-            carList = dbHelper.getSelectedCar(selectionvalue);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (selectionvalue.equals("Bus")) {
-
-            carList = dbHelper.getSelectedCar(selectionvalue);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (selectionvalue.equals("Big bus")) {
-
-            carList = dbHelper.getSelectedCar(selectionvalue);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
+                listView.setAdapter(simpleCursorAdapter2);
+                listView.setOnItemClickListener((parent, view1, pos, id) -> {
+                    Cursor cursor = (Cursor) simpleCursorAdapter2.getItem(pos);
+                    setIntentValues(id, cursor);
+                });
+                break;
         }
     }
 
+    private void setIntentValues(long id, Cursor cursor) {
+        String manufacturer = cursor.getString(2);
+        String model = cursor.getString(3);
+        String price = cursor.getString(5);
+        String equipment = cursor.getString(6);
+        String available = cursor.getString(7);
+        Toast.makeText(getActivity(), manufacturer, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getActivity(), EditOrDelete.class);
+        intent.putExtra("intent_id", id);
+        intent.putExtra("manufacturer", manufacturer);
+        intent.putExtra("model", model);
+        intent.putExtra("price", price);
+        intent.putExtra("equipment", equipment);
+        intent.putExtra("available", available);
+
+        startActivity(intent);
+    }
 }

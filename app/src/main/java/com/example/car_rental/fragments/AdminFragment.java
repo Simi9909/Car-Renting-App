@@ -14,11 +14,12 @@ import android.widget.Spinner;
 import androidx.fragment.app.Fragment;
 
 import com.example.car_rental.R;
+import com.example.car_rental.utils.DBHelper;
 
 
 public class AdminFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private Button qbuttonAddNewCAar;
+    private Button buttonAddNewCAar;
     private Button buttonShowSelected;
     private Button buttonAddNewDriver;
     private Button buttonShowDrivers;
@@ -35,6 +36,9 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
     private void initViews(View view) {
 
         Spinner spinner = view.findViewById(R.id.spinner);
+
+        DBHelper dbHelper = new DBHelper(getActivity());
+        dbHelper.populateListViewFromDB();
 
         spinner.setOnItemSelectedListener(this);
         String[] cartypes = getResources().getStringArray(R.array.cartypes);

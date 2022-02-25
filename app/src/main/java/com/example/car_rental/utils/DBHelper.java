@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.ColorSpace;
 import android.util.Log;
+import android.widget.SimpleCursorAdapter;
 
 import androidx.annotation.Nullable;
 
+import com.example.car_rental.R;
 import com.example.car_rental.model.Cars;
 import com.example.car_rental.model.Driver;
 import com.example.car_rental.model.RentedCars;
@@ -16,6 +19,7 @@ import com.example.car_rental.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String USERS_TABLE = "USERS_TABLE";
@@ -47,8 +51,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_RENT_START_TIME = "RENT_START_TIME";
     public static final String COLUMN_RENT_FINISH_TIME = "RENT_FINISH_TIME";
 
+    SQLiteDatabase databaseWrite;
+    ContentValues contentValues;
+    Context context;
+
     public DBHelper(@Nullable Context context) {
         super(context, "car_rental.db", null, 1);
+        this.context = context;
     }
 
     @Override
@@ -112,8 +121,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean registerNewUser(User user) {
 
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        databaseWrite = this.getWritableDatabase();
+        contentValues = new ContentValues();
 
         contentValues.put(COLUMN_USER_NAME, user.getName());
         contentValues.put(COLUMN_USER_EMAIL, user.getEmail());
@@ -123,7 +132,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_USER_ADDRESS,user.getAddress());
         contentValues.put(COLUMN_USER_PASSWORD, user.getPassword());
 
-        long insert = database.insert(USERS_TABLE, null, contentValues);
+        long insert = databaseWrite.insert(USERS_TABLE, null, contentValues);
 
         if(insert == -1) {
             return false;
@@ -135,8 +144,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean addNewDriver(Driver driver) {
 
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        databaseWrite = this.getWritableDatabase();
+        contentValues = new ContentValues();
 
         contentValues.put(COLUMN_DRIVER_NAME, driver.getName());
         contentValues.put(COLUMN_DRIVER_ID_CARD_NUMBER, driver.getIdCardNumber());
@@ -145,7 +154,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DRIVER_ADDRESS, driver.getAddress());
         contentValues.put(COLUMN_DRIVER_AVAILABILITY, driver.getAvailable());
 
-        long insert = database.insert(DRIVERS_TABLE, null, contentValues);
+        long insert = databaseWrite.insert(DRIVERS_TABLE, null, contentValues);
 
         if (insert == -1) {
             return false;
@@ -157,8 +166,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean addNewCar(Cars cars) {
 
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        databaseWrite = this.getWritableDatabase();
+        contentValues = new ContentValues();
 
         contentValues.put(COLUMN_CAR_MANUFACTURER, cars.getManufacturer());
         contentValues.put(COLUMN_CAR_MODEL, cars.getModel());
@@ -167,7 +176,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_CAR_EQUIPMENT, cars.getEquipment());
         contentValues.put(COLUMN_CAR_AVAILABILITY, cars.getAvailable());
 
-        long insert = database.insert(CARS_TABLE, null, contentValues);
+        long insert = databaseWrite.insert(CARS_TABLE, null, contentValues);
 
         if(insert == -1) {
             return false;
@@ -178,8 +187,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean addCarToRentTable(Cars cars, Driver driver, User user, RentedCars rentedCars){
 
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        databaseWrite = this.getWritableDatabase();
+        contentValues = new ContentValues();
 
         contentValues.put(COLUMN_CAR_ID, cars.getId());
         contentValues.put(COLUMN_DRIVER_ID, driver.getId());
@@ -187,7 +196,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_RENT_START_TIME, rentedCars.getRentStartDate());
         contentValues.put(COLUMN_RENT_FINISH_TIME, rentedCars.getRentFinnishDate());
 
-        long insert = database.insert(CARS_IN_RENT_TABLE, null, contentValues);
+        long insert = databaseWrite.insert(CARS_IN_RENT_TABLE, null, contentValues);
 
         if(insert == -1) {
             return false;
@@ -202,8 +211,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String query = "SELECT * FROM " + CARS_TABLE;
 
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery(query, null);
+        databaseWrite = this.getWritableDatabase();
+        Cursor cursor = databaseWrite.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -223,7 +232,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        database.close();
         return returnList;
 
     }
@@ -254,7 +262,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        database.close();
         return returnList;
     }
 
@@ -285,8 +292,109 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        database.close();
         return returnList;
+
+    }
+
+    /*public Cars getEditOrDeleteCar(String manufacturer, String model, Integer price, String equipment, Boolean available) {
+
+        Cars car = null;
+        String query = "SELECT * FROM " + CARS_TABLE 
+                + " WHERE " + COLUMN_CAR_MANUFACTURER + " = '" + manufacturer+"'"
+                + COLUMN_CAR_MODEL + " = '" + model+"'"
+                + COLUMN_CAR_MANUFACTURER + " = '" + manufacturer+"'"
+                + COLUMN_CAR_PRICE + " = '" + price+"'"
+                + COLUMN_CAR_EQUIPMENT + " = '" + equipment+"'"
+                + COLUMN_CAR_AVAILABILITY + " = '" + available+"'";
+
+        databaseWrite = this.getWritableDatabase();
+        Cursor cursor = databaseWrite.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int carID = cursor.getInt(0);
+                String carManufacturer = cursor.getString(1);
+                String carModel = cursor.getString(2);
+                String carType = cursor.getString(3);
+                int carPrice = cursor.getInt(4);
+                String carEquipment = cursor.getString(5);
+                boolean carAvailability = cursor.getInt(6) == 1 ? true: false;
+
+
+                car = new Cars(carID, carManufacturer, carModel, carType, carPrice, carEquipment, carAvailability);
+                
+            } while (cursor.moveToNext());
+        } else {
+            Log.d("", "No car in database!");
+        }
+
+        cursor.close();
+        databaseWrite.close();
+        return car;
+    }*/
+
+    public SimpleCursorAdapter populateListViewFromDB() {
+
+        String query = "SELECT rowid _id,* FROM " + CARS_TABLE;
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String columns[] = {"rowid _id",COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY};
+        Cursor cursor = database.rawQuery(query, null);
+
+        String [] fromFieldNames = new String[] {
+                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY
+        };
+
+        int[] toViewIds = new int []{R.id.text_id,R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                context,
+                R.layout.car_adapter_view_layout,
+                cursor,
+                fromFieldNames,
+                toViewIds
+        );
+        return adapter;
+    }
+
+    public SimpleCursorAdapter populateListViewFromDB(String type) {
+
+        String query = "SELECT rowid _id,* FROM " + CARS_TABLE + " WHERE " + COLUMN_CAR_TYPE + " = '" + type+"'";
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String columns[] = {"rowid _id",COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY};
+        Cursor cursor = database.rawQuery(query, null);
+
+        String [] fromFieldNames = new String[] {
+                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY
+        };
+
+        int[] toViewIds = new int []{R.id.text_id,R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                context,
+                R.layout.car_adapter_view_layout,
+                cursor,
+                fromFieldNames,
+                toViewIds
+        );
+        return adapter;
+    }
+
+    public int updateCarDataToNew(long id, String manufacturer, String model, String price, String equipment, Boolean available) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_CAR_MANUFACTURER, manufacturer);
+        contentValues.put(COLUMN_CAR_MODEL, model);
+        contentValues.put(COLUMN_CAR_PRICE, price);
+        contentValues.put(COLUMN_CAR_EQUIPMENT,equipment);
+        contentValues.put(COLUMN_CAR_AVAILABILITY, available);
+        String args[] = {""+id};
+        int count = database.update(CARS_TABLE, contentValues, COLUMN_CAR_ID+ "=?", args);
+        return count;
+
 
     }
 }
