@@ -22,12 +22,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import com.example.car_rental.R;
 import com.example.car_rental.model.Cars;
 import com.example.car_rental.utils.DBHelper;
 
+
+import static com.example.car_rental.utils.Validation.validateFields;
 
 public class AddNewCarFragment extends Fragment {
 
@@ -67,7 +68,7 @@ public class AddNewCarFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("herevego","");
+                Log.d("herevego", "");
             }
         });
         String[] cartypes2 = getResources().getStringArray(R.array.cartypes2);
@@ -100,34 +101,71 @@ public class AddNewCarFragment extends Fragment {
 
     private void save() {
 
+        setError();
+        boolean ok = true;
+
         Cars cars = null;
 
-        try {
-            cars = new Cars(-1, carManufacturer.getText().toString(),
-                    carModel.getText().toString(),
-                    carType.toString(),
-                    Integer.parseInt(carPrice.getText().toString()),
-                    carEquipment.getText().toString(),
-                    availabilitySwitch2.isChecked());
+        String carmanufacturer = carManufacturer.getText().toString();
+        String carmodel = carModel.getText().toString();
+        Integer carprice = Integer.valueOf(carPrice.getText().toString());
+        String carequipment = carEquipment.getText().toString();
 
-            Log.d("added", cars.toString());
-        } catch (Exception e) {
-            Log.d(String.valueOf(e), "Error in adding new car");
+
+        if (!validateFields(carmanufacturer)) {
+            ok = false;
+            carManufacturer.setError("Manufacturer field can not be empty");
         }
 
-        DBHelper dbHelper = new DBHelper(getActivity());
+        if (!validateFields(carmodel)) {
+            ok = false;
+            carModel.setError("Model field can not be empty");
+        }
 
-        boolean succes = dbHelper.addNewCar(cars);
-        Log.d("succes= ", String.valueOf(succes));
+        if (!validateFields(String.valueOf(carprice))) {
+            ok = false;
+            carPrice.setError("Price field can not be empty");
+        }
 
-        //adding to database TO DO
-        AdminFragment adminFragment = new AdminFragment();
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, adminFragment, RegisterFragment.class.getSimpleName())
-                .setReorderingAllowed(true)
-                .addToBackStack(null)
-                .commit();
+        if (!validateFields(carequipment)) {
+            ok = false;
+            carEquipment.setError("Equipment field can not be empty");
+        }
+
+        if (ok) {
+
+            try {
+                cars = new Cars(-1, carManufacturer.getText().toString(),
+                        carModel.getText().toString(),
+                        carType,
+                        Integer.parseInt(carPrice.getText().toString()),
+                        carEquipment.getText().toString(),
+                        availabilitySwitch2.isChecked());
+
+                Log.d("added", cars.toString());
+            } catch (Exception e) {
+                Log.d(String.valueOf(e), "Error in adding new car");
+            }
+
+            DBHelper dbHelper = new DBHelper(getActivity());
+
+            boolean succes = dbHelper.addNewCar(cars);
+            Log.d("succes= ", String.valueOf(succes));
+
+            //adding to database TO DO
+            AdminFragment adminFragment = new AdminFragment();
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentFrame, adminFragment, RegisterFragment.class.getSimpleName())
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
-
+    private void setError() {
+        carManufacturer.setError(null);
+        carModel.setError(null);
+        carPrice.setError(null);
+        carEquipment.setError(null);
+    }
 }

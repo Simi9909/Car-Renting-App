@@ -21,6 +21,9 @@
         <activity
             android:name="com.example.car_rental.fragments.EditOrDelete">
         </activity>
+        <activity
+            android:name="com.example.car_rental.fragments.EditOrDeleteDriver">
+        </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

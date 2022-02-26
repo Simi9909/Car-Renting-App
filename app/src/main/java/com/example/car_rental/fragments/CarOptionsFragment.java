@@ -6,14 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.car_rental.R;
 import com.example.car_rental.model.Cars;
-import com.example.car_rental.utils.CarListAdapter;
 import com.example.car_rental.utils.DBHelper;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class CarOptionsFragment extends Fragment {
 
     ListView listView;
     String cartype;
-    ArrayAdapter carsArrayAdapter;
     List<Cars> carList;
 
     @Override
@@ -47,44 +45,39 @@ public class CarOptionsFragment extends Fragment {
             Log.d("bundle", cartype);
         }
 
-        if (cartype.equals("Small car")) {
+        switch (cartype) {
+            case "Small car":
 
-            carList = dbHelper.getSelectedCar(cartype);
+                populateListView(dbHelper);
+                break;
+            case "4/5 door car":
 
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (cartype.equals("4/5 door car")) {
+                populateListView(dbHelper);
+                break;
+            case "SUV":
 
-            carList = dbHelper.getSelectedCar(cartype);
+                populateListView(dbHelper);
+                break;
+            case "Minivan":
 
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (cartype.equals("SUV")) {
+                populateListView(dbHelper);
+                break;
+            case "Bus":
 
-            carList = dbHelper.getSelectedCar(cartype);
+                populateListView(dbHelper);
+                break;
+            case "Big bus":
 
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (cartype.equals("Minivan")) {
-
-            carList = dbHelper.getSelectedCar(cartype);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (cartype.equals("Bus")) {
-
-            carList = dbHelper.getSelectedCar(cartype);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
-        } else if (cartype.equals("Big bus")) {
-
-            carList = dbHelper.getSelectedCar(cartype);
-
-            CarListAdapter carListAdapter = new CarListAdapter(getActivity(), R.layout.car_adapter_view_layout, carList);
-            listView.setAdapter(carListAdapter);
+                populateListView(dbHelper);
+                break;
         }
 
+    }
+
+    private void populateListView(DBHelper dbHelper) {
+        carList = dbHelper.getSelectedCar(cartype);
+        SimpleCursorAdapter simpleCursorAdapter = dbHelper.populateListViewFromDB(cartype);
+        listView.setAdapter(simpleCursorAdapter);
     }
 
 }

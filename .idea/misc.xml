@@ -6,15 +6,17 @@
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/adminviewfragment.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/car_adapter_view_layout.xml" value="0.18690264855772545" />
-        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/driver_adapter_view_layout.xml" value="0.1" />
+        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/driver_adapter_layout.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/driver_adapter_view_layout.xml" value="0.13592919895107308" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/dropdownmenu.xml" value="0.5692035206076185" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_add_driver.xml" value="0.1572052401746725" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_add_new_car.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_admin.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_car_options.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_car_types.xml" value="0.25" />
-        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_drivers_list.xml" value="0.14947916666666666" />
+        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_drivers_list.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_edit_or_delete.xml" value="0.18690264855772545" />
+        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_edit_or_delete_driver.xml" value="0.16614583333333333" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_login.xml" value="0.1784070736232834" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_register.xml" value="0.21238937336105165" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_selection.xml" value="0.1" />

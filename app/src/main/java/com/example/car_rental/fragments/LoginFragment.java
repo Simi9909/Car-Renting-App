@@ -1,10 +1,11 @@
 package com.example.car_rental.fragments;
 
+import static com.example.car_rental.utils.Validation.validateEmail;
+import static com.example.car_rental.utils.Validation.validateFields;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -15,13 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.car_rental.R;
+import com.example.car_rental.utils.DBHelper;
 
 public class LoginFragment extends Fragment {
 
     private EditText etEmail;
     private EditText etPassword;
-    private Button btnLogin;
-    private TextView tvRegister;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,27 +34,45 @@ public class LoginFragment extends Fragment {
 
     private void initViews(View v) {
 
-        etEmail = (EditText) v.findViewById(R.id.et_email);
-        etPassword = (EditText) v.findViewById(R.id.et_password);
-        btnLogin = (Button) v.findViewById(R.id.btn_login);
-        tvRegister = (TextView) v.findViewById(R.id.tv_register);
+        etEmail = v.findViewById(R.id.et_email);
+        etPassword = v.findViewById(R.id.et_password);
+        Button btnLogin = v.findViewById(R.id.btn_login);
+        TextView tvRegister = v.findViewById(R.id.tv_register);
 
         btnLogin.setOnClickListener(view -> login());
         tvRegister.setOnClickListener(view -> goToRegister());
     }
 
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }*/
-
-
     private void login() {
-        if (etEmail.getText().toString().equals("admin")) {
+
+        setError();
+        boolean ok = true;
+        DBHelper dbHelper = new DBHelper(getActivity());
+
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (etEmail.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")) {
             goToAdminPage();
-        } else {
-            goToCarTypesPage();
         }
+
+        if (!dbHelper.checkIfPasswordMatchesForEmail(email.trim(), password.trim())) {
+            ok = false;
+            etEmail.setError("Wrong email or password");
+        }
+
+        if (!validateEmail(email)) {
+            ok = false;
+            etEmail.setError("Email field can not be empty or email pattern invalid");
+        }
+
+        if (!validateFields(password)) {
+            ok = false;
+            etPassword.setError("Password field can not be empty");
+        }
+
+        if (ok) goToCarTypesPage();
+
     }
 
     private void goToCarTypesPage() {
@@ -75,7 +93,7 @@ public class LoginFragment extends Fragment {
                 .commit();
     }
 
-    private void goToRegister(){
+    private void goToRegister() {
         RegisterFragment registerFragment = new RegisterFragment();
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragmentFrame, registerFragment)
@@ -84,5 +102,9 @@ public class LoginFragment extends Fragment {
                 .commit();
     }
 
+    private void setError() {
 
+        etEmail.setError(null);
+        etPassword.setError(null);
+    }
 }

@@ -19,11 +19,6 @@ import com.example.car_rental.utils.DBHelper;
 
 public class AdminFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private Button buttonAddNewCAar;
-    private Button buttonShowSelected;
-    private Button buttonAddNewDriver;
-    private Button buttonShowDrivers;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,16 +34,17 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
 
         DBHelper dbHelper = new DBHelper(getActivity());
         dbHelper.populateListViewFromDB();
+        dbHelper.populateDriverListViewFromDB();
 
         spinner.setOnItemSelectedListener(this);
         String[] cartypes = getResources().getStringArray(R.array.cartypes);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.dropdownmenu, cartypes);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-        buttonAddNewCAar = view.findViewById(R.id.btn_add_car);
-        buttonShowSelected = view.findViewById(R.id.btn_show);
-        buttonAddNewDriver = view.findViewById(R.id.btn_add_driver);
-        buttonShowDrivers = view.findViewById(R.id.btn_show_drivers);
+        Button buttonAddNewCAar = view.findViewById(R.id.btn_add_car);
+        Button buttonShowSelected = view.findViewById(R.id.btn_show);
+        Button buttonAddNewDriver = view.findViewById(R.id.btn_add_driver);
+        Button buttonShowDrivers = view.findViewById(R.id.btn_show_drivers);
 
         buttonAddNewCAar.setOnClickListener(view1 -> goToAddNewVehicle());
         buttonShowSelected.setOnClickListener(view1 -> goToShowSelectedCategory());

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 import com.example.car_rental.R;
 import com.example.car_rental.utils.DBHelper;
@@ -21,12 +20,11 @@ import com.example.car_rental.utils.DBHelper;
 
 public class SelectionFragment extends Fragment {
 
-    ListView listView;
     String selectionvalue;
     static DBHelper dbHelper;
 
     SimpleCursorAdapter simpleCursorAdapter = null;
-    SimpleCursorAdapter simpleCursorAdapter2 = null;
+    SimpleCursorAdapter simpleCursorAdapterForSelectedCarCategory = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +37,7 @@ public class SelectionFragment extends Fragment {
 
     private void initViews(View view) {
 
-        listView = view.findViewById(R.id.lv_car);
+        ListView listView = view.findViewById(R.id.lv_car);
 
         dbHelper = new DBHelper(getActivity());
 
@@ -49,12 +47,11 @@ public class SelectionFragment extends Fragment {
             Log.d("Success ", selectionvalue);
 
             simpleCursorAdapter = dbHelper.populateListViewFromDB();
-            simpleCursorAdapter2 = dbHelper.populateListViewFromDB(selectionvalue);
+            simpleCursorAdapterForSelectedCarCategory = dbHelper.populateListViewFromDB(selectionvalue);
         }
 
         switch (selectionvalue) {
             case "All":
-
                 listView.setAdapter(simpleCursorAdapter);
                 listView.setOnItemClickListener((parent, view1, pos, id) -> {
                     Cursor cursor = (Cursor) simpleCursorAdapter.getItem(pos);
@@ -62,19 +59,27 @@ public class SelectionFragment extends Fragment {
                 });
                 break;
             case "Small car":
+                setContentForSelectedCarCategory(listView);
             case "4/5 door car":
+                setContentForSelectedCarCategory(listView);
             case "SUV":
+                setContentForSelectedCarCategory(listView);
             case "Minivan":
+                setContentForSelectedCarCategory(listView);
             case "Bus":
+                setContentForSelectedCarCategory(listView);
             case "Big bus":
-
-                listView.setAdapter(simpleCursorAdapter2);
-                listView.setOnItemClickListener((parent, view1, pos, id) -> {
-                    Cursor cursor = (Cursor) simpleCursorAdapter2.getItem(pos);
-                    setIntentValues(id, cursor);
-                });
+                setContentForSelectedCarCategory(listView);
                 break;
         }
+    }
+
+    private void setContentForSelectedCarCategory(ListView listView) {
+        listView.setAdapter(simpleCursorAdapterForSelectedCarCategory);
+        listView.setOnItemClickListener((parent, view1, pos, id) -> {
+            Cursor cursor = (Cursor) simpleCursorAdapterForSelectedCarCategory.getItem(pos);
+            setIntentValues(id, cursor);
+        });
     }
 
     private void setIntentValues(long id, Cursor cursor) {
@@ -83,7 +88,6 @@ public class SelectionFragment extends Fragment {
         String price = cursor.getString(5);
         String equipment = cursor.getString(6);
         String available = cursor.getString(7);
-        Toast.makeText(getActivity(), manufacturer, Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getActivity(), EditOrDelete.class);
         intent.putExtra("intent_id", id);

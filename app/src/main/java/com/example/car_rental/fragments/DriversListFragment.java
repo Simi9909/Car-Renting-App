@@ -1,5 +1,7 @@
 package com.example.car_rental.fragments;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,25 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import com.example.car_rental.R;
-import com.example.car_rental.model.Cars;
-import com.example.car_rental.model.Driver;
-import com.example.car_rental.utils.CarListAdapter;
 import com.example.car_rental.utils.DBHelper;
-import com.example.car_rental.utils.DriverListAdapter;
 
-import java.util.List;
 
 public class DriversListFragment extends Fragment {
 
-    ListView listView;
-    List<Driver> driverList;
+    static DBHelper dbHelper;
+    SimpleCursorAdapter simpleCursorAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_selection, container, false);
+        View view = inflater.inflate(R.layout.fragment_drivers_list, container, false);
         initViews(view);
         PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
@@ -35,13 +33,37 @@ public class DriversListFragment extends Fragment {
 
     private void initViews(View view) {
 
-        listView = view.findViewById(R.id.lv_car);
+        ListView listView = view.findViewById(R.id.lv_driver);
 
-        DBHelper dbHelper = new DBHelper(getActivity());
+        dbHelper = new DBHelper(getActivity());
+        simpleCursorAdapter = dbHelper.populateDriverListViewFromDB();
+        listView.setAdapter(simpleCursorAdapter);
 
-        driverList = dbHelper.getAllDriver();
+        listView.setOnItemClickListener((parent, view1, pos, id) -> {
+            Cursor cursor = (Cursor) simpleCursorAdapter.getItem(pos);
+            setIntentValues(id, cursor);
+        });
 
-        DriverListAdapter driverListAdapter = new DriverListAdapter(getActivity(), R.layout.driver_adapter_view_layout, driverList);
-        listView.setAdapter(driverListAdapter);
+    }
+
+    private void setIntentValues(long id, Cursor cursor) {
+
+        String name = cursor.getString(2);
+        String idcard = cursor.getString(3);
+        String phonenumber = cursor.getString(4);
+        String drivinglicence = cursor.getString(5);
+        String address = cursor.getString(6);
+        String available = cursor.getString(7);
+
+        Intent intent = new Intent(getActivity(), EditOrDeleteDriver.class);
+        intent.putExtra("inten_id", id);
+        intent.putExtra("name", name);
+        intent.putExtra("idcard", idcard);
+        intent.putExtra("phone", phonenumber);
+        intent.putExtra("drivinglicence", drivinglicence);
+        intent.putExtra("address", address);
+        intent.putExtra("available", available);
+
+        startActivity(intent);
     }
 }

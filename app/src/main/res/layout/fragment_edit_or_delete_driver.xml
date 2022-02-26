@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.EditOrDelete">
+    tools:context=".fragments.EditOrDeleteDriver">
 
 
     <TextView
@@ -18,55 +18,67 @@
         android:textSize="35sp" />
 
     <EditText
-        android:id="@+id/ed_car_manufacture"
+        android:id="@+id/ed_driver_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:background="@null"
         android:gravity="center"
-        android:hint="Manufacturer"
+        android:hint="Driver name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/ed_car_model"
+        android:id="@+id/ed_driver_id_card_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:background="@null"
         android:gravity="center"
-        android:hint="Model"
+        android:hint="Id card number"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/ed_car_price"
+        android:id="@+id/ed_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:background="@null"
         android:gravity="center"
-        android:hint="Price"
+        android:hint="Phone number"
         android:inputType="phone"
         android:minHeight="48dp"
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/ed_car_equipment"
+        android:id="@+id/ed_driver_licence_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:background="@null"
         android:gravity="center"
-        android:hint="Equipment"
+        android:hint="Driving licence number"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/ed_driver_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="Address"
         android:inputType="phone"
         android:minHeight="48dp"
         android:textSize="25sp" />
 
     <Switch
-        android:id="@+id/switch_car_available"
+        android:id="@+id/switch_driver_availability"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
@@ -82,7 +94,7 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btn_save_car_update"
+            android:id="@+id/btn_save_driver_update"
             android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_marginRight="55sp"
@@ -90,7 +102,7 @@
             android:textSize="25sp"/>
 
         <Button
-            android:id="@+id/btn_delete_car"
+            android:id="@+id/btn_delete_driver"
             android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:text="Delete"
