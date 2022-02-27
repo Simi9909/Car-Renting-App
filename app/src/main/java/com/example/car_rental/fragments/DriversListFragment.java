@@ -43,7 +43,6 @@ public class DriversListFragment extends Fragment {
             Cursor cursor = (Cursor) simpleCursorAdapter.getItem(pos);
             setIntentValues(id, cursor);
         });
-
     }
 
     private void setIntentValues(long id, Cursor cursor) {

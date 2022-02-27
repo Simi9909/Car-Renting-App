@@ -100,11 +100,6 @@ public class RegisterFragment extends Fragment {
             etIdCardNumber.setError("Id card field can not be empty");
         }
 
-        if (!validateFields(drivinglicence)) {
-            ok = false;
-            etDrivingLicenceNumber.setError("Driving licence field can not be empty");
-        }
-
         if (!validateFields(String.valueOf(phone))) {
             ok = false;
             etPhoneNumber.setError("Name field can not be empty");

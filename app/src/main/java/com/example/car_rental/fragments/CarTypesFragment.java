@@ -2,6 +2,7 @@ package com.example.car_rental.fragments;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.example.car_rental.R;
 
 public class CarTypesFragment extends Fragment {
 
+
+    String id;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class CarTypesFragment extends Fragment {
     }
 
     private void initViews(View v) {
+
 
         ImageView smallCarImage = v.findViewById(R.id.smallcarimage);
         TextView smallCar = v.findViewById(R.id.small_car);
@@ -51,6 +55,14 @@ public class CarTypesFragment extends Fragment {
         busImage.setOnClickListener(view -> bus());
         bigBus.setOnClickListener(view -> bigBus());
         bigBusImage.setOnClickListener(view -> bigBus());
+
+
+        Bundle user_id_bundle = this.getArguments();
+
+        if (user_id_bundle != null){
+            id = user_id_bundle.getString("user_id");
+            Log.d("user_d", ""+id);
+        }
     }
 
 
@@ -87,6 +99,8 @@ public class CarTypesFragment extends Fragment {
     }
 
     private void goToCarOptions() {
+
+        bundle.putString("user_id",id);
 
         CarOptionsFragment carOptionsFragment = new CarOptionsFragment();
         carOptionsFragment.setArguments(bundle);

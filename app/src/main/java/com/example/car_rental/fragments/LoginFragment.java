@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,9 @@ public class LoginFragment extends Fragment {
         tvRegister.setOnClickListener(view -> goToRegister());
     }
 
+
+    Bundle bundle = new Bundle();
+
     private void login() {
 
         setError();
@@ -56,9 +60,14 @@ public class LoginFragment extends Fragment {
             goToAdminPage();
         }
 
-        if (!dbHelper.checkIfPasswordMatchesForEmail(email.trim(), password.trim())) {
+        String user_d = dbHelper.checkIfPasswordMatchesForEmail(email.trim(), password.trim());
+        if (user_d.equals("null")) {
             ok = false;
             etEmail.setError("Wrong email or password");
+        } else {
+
+            Log.d("User ID", user_d);
+            bundle.putString("user_id", user_d);
         }
 
         if (!validateEmail(email)) {
@@ -76,7 +85,9 @@ public class LoginFragment extends Fragment {
     }
 
     private void goToCarTypesPage() {
+
         CarTypesFragment carTypesFragment = new CarTypesFragment();
+        carTypesFragment.setArguments(bundle);
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragmentFrame, carTypesFragment)
                 .setReorderingAllowed(true)

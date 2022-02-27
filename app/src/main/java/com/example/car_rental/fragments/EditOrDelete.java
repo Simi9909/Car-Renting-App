@@ -26,7 +26,7 @@ public class EditOrDelete extends AppCompatActivity {
         String model = getIntent().getExtras().getString("model");
         String price = getIntent().getExtras().getString("price");
         String equipment = getIntent().getExtras().getString("equipment");
-        boolean available = Boolean.parseBoolean(getIntent().getExtras().getString("available"));
+        String available = getIntent().getExtras().getString("available");
 
         etmanufacturer = findViewById(R.id.ed_car_manufacture);
         etmodel = findViewById(R.id.ed_car_model);
@@ -38,7 +38,9 @@ public class EditOrDelete extends AppCompatActivity {
         etmodel.setText(model);
         etprice.setText(price);
         etequipment.setText(equipment);
-        swavailable.setChecked(available);
+        if (available.equals("1")) {
+            swavailable.setChecked(true);
+        } else swavailable.setChecked(false);
 
         btn_save = findViewById(R.id.btn_save_car_update);
         btn_save.setOnClickListener(view -> updateCarData());

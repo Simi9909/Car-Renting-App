@@ -1,5 +1,7 @@
 package com.example.car_rental.fragments;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -21,8 +23,9 @@ import java.util.List;
 public class CarOptionsFragment extends Fragment {
 
     ListView listView;
-    String cartype;
+    String cartype, userid;
     List<Cars> carList;
+    SimpleCursorAdapter simpleCursorAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,9 +43,13 @@ public class CarOptionsFragment extends Fragment {
         DBHelper dbHelper = new DBHelper(getActivity());
 
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
+        Log.d("bundle", String.valueOf(bundle));
+
+        if(bundle != null) {
             cartype = bundle.getString("bundleKey");
-            Log.d("bundle", cartype);
+            userid = bundle.getString("user_id");
+            Log.d("cartype", cartype);
+            Log.d("userid", userid);
         }
 
         switch (cartype) {
@@ -71,13 +78,40 @@ public class CarOptionsFragment extends Fragment {
                 populateListView(dbHelper);
                 break;
         }
-
+        listView.setOnItemClickListener((parent, view1, pos, id) -> {
+            Cursor cursor = (Cursor) simpleCursorAdapter.getItem(pos);
+            setIntentValues(id, cursor);
+        });
     }
 
     private void populateListView(DBHelper dbHelper) {
+
         carList = dbHelper.getSelectedCar(cartype);
-        SimpleCursorAdapter simpleCursorAdapter = dbHelper.populateListViewFromDB(cartype);
+        simpleCursorAdapter = dbHelper.populateListViewFromDB(cartype);
         listView.setAdapter(simpleCursorAdapter);
+
+    }
+
+    private void setIntentValues(long id, Cursor cursor) {
+
+        String car_id = cursor.getString(1);
+        Log.d("cardid car options",car_id);
+        String manufacturer = cursor.getString(2);
+        String model = cursor.getString(3);
+        String price = cursor.getString(5);
+        String equipment = cursor.getString(6);
+        String available = cursor.getString(7);
+
+        Intent intent = new Intent(getActivity(), CarRent.class);
+        intent.putExtra("rent_intent_id", id);
+        intent.putExtra("car_id", car_id);
+        intent.putExtra("manufacturer", manufacturer);
+        intent.putExtra("model", model);
+        intent.putExtra("price", price);
+        intent.putExtra("equipment", equipment);
+        intent.putExtra("available", available);
+        intent.putExtra("user_id", userid);
+        startActivity(intent);
     }
 
 }

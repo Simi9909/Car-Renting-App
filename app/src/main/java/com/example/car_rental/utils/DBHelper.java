@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.SimpleCursorAdapter;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.Nullable;
 
 import com.example.car_rental.R;
@@ -234,7 +235,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 R.layout.car_adapter_view_layout,
                 cursor,
                 fromFieldNames,
-                toViewIds
+                toViewIds,
+                1
         );
         return adapter;
     }
@@ -257,7 +259,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 R.layout.car_adapter_view_layout,
                 cursor,
                 fromFieldNames,
-                toViewIds
+                toViewIds,
+                1
         );
         return adapter;
     }
@@ -304,9 +307,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 R.layout.driver_adapter_view_layout,
                 cursor,
                 fromFieldNames,
-                toViewIds
+                toViewIds,
+                1
         );
-        Log.d("adapter", String.valueOf(adapter));
         return adapter;
     }
 
@@ -353,7 +356,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public Boolean checkIfPasswordMatchesForEmail(String email, String password) {
+    public String checkIfPasswordMatchesForEmail(String email, String password) {
         String query = "SELECT rowid _id,* FROM " + USERS_TABLE + " WHERE "
                 + COLUMN_USER_EMAIL + " = '" + email + "'";
 
@@ -361,14 +364,60 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = database.rawQuery(query, null);
         String emailsInDataBase, passwordInDataBase;
+        String userid;
         if (cursor.moveToNext()) {
             do {
+                userid = cursor.getString(1);
                 emailsInDataBase = cursor.getString(3);
                 passwordInDataBase = cursor.getString(8);
 
-                Log.d("eamil",emailsInDataBase + " password " +passwordInDataBase);
+                Log.d("eamil", emailsInDataBase + " password " + passwordInDataBase);
 
-                if ((emailsInDataBase.equals(email) && passwordInDataBase.equals(password))==true) {
+                if ((emailsInDataBase.equals(email) && passwordInDataBase.equals(password)) == true) {
+                    return userid;
+                    //Log.d("id", userid);
+                }
+
+            } while (cursor.moveToNext());
+        }
+        return "null";
+    }
+
+    public Boolean getAvailableDriver() {
+
+        String query = "SELECT rowid _id,* FROM " + DRIVERS_TABLE + " WHERE "
+                + COLUMN_DRIVER_AVAILABILITY + " = '" + "1" + "'" + " ORDER BY random() " + "LIMIT 1";
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.rawQuery(query, null);
+        String isavailable;
+        if (cursor.moveToNext()) {
+            do {
+                isavailable = cursor.getString(5);
+                Log.d("available", isavailable);
+                return true;
+
+            } while (cursor.moveToNext());
+        }
+        return false;
+    }
+
+    public Boolean checkIfUserHasDrivingLicenceAdded(String id) {
+
+        String query = "SELECT rowid _id,* FROM " + USERS_TABLE + " WHERE "
+                + COLUMN_USER_ID + " = '" + id + "'";
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.rawQuery(query, null);
+        String gotid;
+        if (cursor.moveToNext()) {
+            do {
+                gotid = cursor.getString(5);
+                if (gotid != null) {
+                    Log.d("available", gotid);
+
                     return true;
                 }
 
@@ -376,4 +425,40 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+
+    public String checkIfCarIsAvailable(String id) {
+
+        String carId, startdate, finishDate;
+
+        String queryRent = "SELECT * FROM "
+                + CARS_IN_RENT_TABLE
+                + " INNER JOIN "
+                + CARS_TABLE + " ON "
+                + CARS_TABLE + " . " + COLUMN_CAR_ID
+                + " = "
+                + CARS_TABLE + " . " + COLUMN_CAR_ID
+                + " WHERE " + CARS_TABLE + " . " + COLUMN_CAR_ID +" = '" + id + "'";
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.rawQuery(queryRent, null);
+        if (cursor.moveToNext()) {
+            do {
+                carId = cursor.getString(1);
+                startdate = cursor.getString(4);
+                finishDate = cursor.getString(5);
+
+                Log.d("carID", "" + carId);
+                Log.d("start", "" + startdate);
+                Log.d("finish", "" + finishDate);
+
+                return "found";
+
+
+            } while (cursor.moveToNext());
+        }
+        return "not";
+
+    }
 }
+

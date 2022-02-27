@@ -1,13 +1,18 @@
 package com.example.car_rental.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.example.car_rental.MainActivity;
 import com.example.car_rental.R;
 
 public class EditOrDeleteDriver extends AppCompatActivity {
@@ -27,7 +32,8 @@ public class EditOrDeleteDriver extends AppCompatActivity {
         String phonenumber = getIntent().getExtras().getString("phone");
         String drivinglicence = getIntent().getExtras().getString("drivinglicence");
         String address = getIntent().getExtras().getString("address");
-        boolean available = Boolean.parseBoolean(getIntent().getExtras().getString("available"));
+        String available = getIntent().getExtras().getString("available");
+        Log.d("available",available);
 
         etdrivername = findViewById(R.id.ed_driver_name);
         etidcardnumber = findViewById(R.id.ed_driver_id_card_number);
@@ -41,13 +47,16 @@ public class EditOrDeleteDriver extends AppCompatActivity {
         etphonenumber.setText(phonenumber);
         etdrivinglicencenumber.setText(drivinglicence);
         etaddress.setText(address);
-        swdriveravailable.setChecked(available);
+        if (available.equals("1")) {
+            swdriveravailable.setChecked(true);
+        } else swdriveravailable.setChecked(false);
 
         btn_driver_save = findViewById(R.id.btn_save_driver_update);
         btn_driver_save.setOnClickListener(view -> updateDriver());
 
         btn_driver_delete = findViewById(R.id.btn_delete_driver);
         btn_driver_delete.setOnClickListener(view -> deleteDriverFromDatabase());
+
     }
 
     private void deleteDriverFromDatabase() {
@@ -68,9 +77,9 @@ public class EditOrDeleteDriver extends AppCompatActivity {
         Boolean available = swdriveravailable.isChecked();
         DriversListFragment.dbHelper.updateDriverToNew(id, name, idcard, phone, drivinglicence, address, available);
 
-        getSupportFragmentManager().beginTransaction().add(android.R.id.content, new AdminFragment()).commit();
-
+        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, new DriversListFragment(), null).commit();
         finish();
     }
+
 
 }
