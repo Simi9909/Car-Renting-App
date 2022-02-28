@@ -47,7 +47,7 @@ public class SelectionFragment extends Fragment {
             Log.d("Success ", selectionvalue);
 
             simpleCursorAdapter = dbHelper.populateListViewFromDB();
-            simpleCursorAdapterForSelectedCarCategory = dbHelper.populateListViewFromDB(selectionvalue);
+            simpleCursorAdapterForSelectedCarCategory = dbHelper.populateListViewFromDBAdmin(selectionvalue);
         }
 
         switch (selectionvalue) {

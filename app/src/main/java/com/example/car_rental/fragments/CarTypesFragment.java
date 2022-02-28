@@ -111,4 +111,8 @@ public class CarTypesFragment extends Fragment {
                 .commit();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

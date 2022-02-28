@@ -71,6 +71,7 @@ public class CarRent extends AppCompatActivity {
         Log.d("start", startDate);
         Log.d("finish", finishDate);
         Log.d("user_id", userid);
+        Log.d("carid", carid);
 
         btnrentcar.setOnClickListener(view -> saveRentData());
 
@@ -79,31 +80,48 @@ public class CarRent extends AppCompatActivity {
     private void saveRentData() {
 
         DBHelper dbHelper = new DBHelper(this);
-        Boolean ok = true;
+        boolean ok = true;
+        String driverid = null;
 
         selected_start_date = LocalDate.of(dpstart.getYear(), dpstart.getMonth(), dpstart.getDayOfMonth());
         selected_finish_date = LocalDate.of(dpfinish.getYear(), dpfinish.getMonth(), dpfinish.getDayOfMonth());
         String startDate = dateTimeFormatter.format(selected_start_date);
         String finishDate = dateTimeFormatter.format(selected_finish_date);
 
-Log.d("carid", carid);
-        if (dbHelper.checkIfCarIsAvailable(carid) == "not") {
-            Log.d("itt vagyok", "");
-        } else Log.d("nem mert itt vgayok", "");
 
-        if (selected_finish_date.isAfter(selected_start_date)) {
+        if (selected_finish_date.isBefore(selected_start_date)) {
             ok = false;
-            Toast.makeText(this, "Finish date can not be before start date!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Start date cant be after finish date!", Toast.LENGTH_SHORT).show();
         }
 
         if (checkBox.isChecked()) {
-            Toast.makeText(this, "Assigning driver", Toast.LENGTH_SHORT).show();
-            dbHelper.getAvailableDriver();
-        } else if (dbHelper.checkIfUserHasDrivingLicenceAdded(userid)) {
+
+            //Toast.makeText(this, "Assigning driver", Toast.LENGTH_SHORT).show();
+
+            driverid = dbHelper.getAvailableDriver();
+            if (driverid.equals("not found")) {
+                ok = false;
+                Toast.makeText(this, "No available driver", Toast.LENGTH_SHORT).show();
+            }
+
+        } else if (!dbHelper.checkIfUserHasDrivingLicenceAdded(userid)) {
             ok = false;
             Toast.makeText(this, "You need a driver to rent cars", Toast.LENGTH_SHORT).show();
         }
 
+        if (dbHelper.checkIfCarIsAvailable(carid, startDate, finishDate)) {
+            ok = false;
+            Toast.makeText(this, "Car can not be rented for the set dates", Toast.LENGTH_SHORT).show();
+        }
+
+        if (ok == true) {
+            Log.d("ok", String.valueOf(true));
+            dbHelper.addCarToRentTable(carid, userid, driverid, startDate, finishDate);
+            Log.d("rent", String.valueOf(dbHelper.addCarToRentTable(carid, userid, driverid, startDate, finishDate)));
+
+            getSupportFragmentManager().beginTransaction().add(android.R.id.content, new CarTypesFragment()).commit();
+            finish();
+        }
 
     }
 

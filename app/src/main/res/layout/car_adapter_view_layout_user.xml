@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_id"
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_manufacturer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manufacturer"
+        android:gravity="center"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Model"
+        android:gravity="center"
+        android:textSize="23sp"/>
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_equipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:text="Equipment"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_marginTop="10sp"
+        android:id="@+id/text_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:gravity="center"
+        android:textSize="23sp"/>
+
+
+</LinearLayout>

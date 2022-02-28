@@ -100,7 +100,7 @@ public class CarOptionsFragment extends Fragment {
         String model = cursor.getString(3);
         String price = cursor.getString(5);
         String equipment = cursor.getString(6);
-        String available = cursor.getString(7);
+        //String available = cursor.getString(7);
 
         Intent intent = new Intent(getActivity(), CarRent.class);
         intent.putExtra("rent_intent_id", id);
@@ -109,7 +109,7 @@ public class CarOptionsFragment extends Fragment {
         intent.putExtra("model", model);
         intent.putExtra("price", price);
         intent.putExtra("equipment", equipment);
-        intent.putExtra("available", available);
+        //intent.putExtra("available", available);
         intent.putExtra("user_id", userid);
         startActivity(intent);
     }

@@ -17,8 +17,12 @@ import com.example.car_rental.model.Driver;
 import com.example.car_rental.model.RentedCars;
 import com.example.car_rental.model.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String USERS_TABLE = "USERS_TABLE";
@@ -172,16 +176,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public boolean addCarToRentTable(Cars cars, Driver driver, User user, RentedCars rentedCars) {
+    public boolean addCarToRentTable(String carid, String driverid, String userid, String startDate, String finishDate) {
 
         databaseWrite = this.getWritableDatabase();
         contentValues = new ContentValues();
 
-        contentValues.put(COLUMN_CAR_ID, cars.getId());
-        contentValues.put(COLUMN_DRIVER_ID, driver.getId());
-        contentValues.put(COLUMN_USER_ID, user.getId());
-        contentValues.put(COLUMN_RENT_START_TIME, rentedCars.getRentStartDate());
-        contentValues.put(COLUMN_RENT_FINISH_TIME, rentedCars.getRentFinnishDate());
+        contentValues.put(COLUMN_CAR_ID, carid);
+        contentValues.put(COLUMN_DRIVER_ID, driverid);
+        contentValues.put(COLUMN_USER_ID, userid);
+        contentValues.put(COLUMN_RENT_START_TIME, startDate);
+        contentValues.put(COLUMN_RENT_FINISH_TIME, finishDate);
 
         long insert = databaseWrite.insert(CARS_IN_RENT_TABLE, null, contentValues);
 
@@ -244,6 +248,30 @@ public class DBHelper extends SQLiteOpenHelper {
     public SimpleCursorAdapter populateListViewFromDB(String type) {
 
         String query = "SELECT rowid _id,* FROM " + CARS_TABLE + " WHERE " + COLUMN_CAR_TYPE + " = '" + type + "'";
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        String[] fromFieldNames = new String[]{
+                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY
+        };
+
+        int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                context,
+                R.layout.car_adapter_view_layout_user,
+                cursor,
+                fromFieldNames,
+                toViewIds,
+                1
+        );
+        return adapter;
+    }
+
+    public SimpleCursorAdapter populateListViewFromDBAdmin(String selectionvalue) {
+
+        String query = "SELECT rowid _id,* FROM " + CARS_TABLE;
 
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -383,7 +411,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return "null";
     }
 
-    public Boolean getAvailableDriver() {
+    public String getAvailableDriver() {
 
         String query = "SELECT rowid _id,* FROM " + DRIVERS_TABLE + " WHERE "
                 + COLUMN_DRIVER_AVAILABILITY + " = '" + "1" + "'" + " ORDER BY random() " + "LIMIT 1";
@@ -391,19 +419,19 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery(query, null);
-        String isavailable;
+        String driverid;
         if (cursor.moveToNext()) {
             do {
-                isavailable = cursor.getString(5);
-                Log.d("available", isavailable);
-                return true;
+                driverid = cursor.getString(1);
+                Log.d("Driver id", driverid);
+                return driverid;
 
             } while (cursor.moveToNext());
         }
-        return false;
+        return "not found";
     }
 
-    public Boolean checkIfUserHasDrivingLicenceAdded(String id) {
+    public boolean checkIfUserHasDrivingLicenceAdded(String id) {
 
         String query = "SELECT rowid _id,* FROM " + USERS_TABLE + " WHERE "
                 + COLUMN_USER_ID + " = '" + id + "'";
@@ -411,54 +439,84 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery(query, null);
-        String gotid;
+        String  gotid;
         if (cursor.moveToNext()) {
             do {
                 gotid = cursor.getString(5);
-                if (gotid != null) {
-                    Log.d("available", gotid);
-
+                if (!gotid.isEmpty()) {
+                    Log.d("User Driving licence id", gotid);
                     return true;
                 }
-
             } while (cursor.moveToNext());
         }
         return false;
     }
 
-    public String checkIfCarIsAvailable(String id) {
+    public Boolean checkIfCarIsAvailable(String id, String startDate, String finishDate) {
 
-        String carId, startdate, finishDate;
+        String carId, startdate, finishdate;
+        Boolean van = true;
 
-        String queryRent = "SELECT * FROM "
+        String queryRent = "SELECT rowid _id,* FROM "
                 + CARS_IN_RENT_TABLE
-                + " INNER JOIN "
+                /*+ " INNER JOIN "
                 + CARS_TABLE + " ON "
                 + CARS_TABLE + " . " + COLUMN_CAR_ID
                 + " = "
-                + CARS_TABLE + " . " + COLUMN_CAR_ID
-                + " WHERE " + CARS_TABLE + " . " + COLUMN_CAR_ID +" = '" + id + "'";
+                + CARS_TABLE + " . " + COLUMN_CAR_ID*/
+                + " WHERE " + COLUMN_CAR_ID + " = '" + id + "'";
 
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery(queryRent, null);
         if (cursor.moveToNext()) {
+            Log.d("valami nem oke", "");
             do {
                 carId = cursor.getString(1);
-                startdate = cursor.getString(4);
-                finishDate = cursor.getString(5);
+                if (!carId.isEmpty()) {
+                    startdate = cursor.getString(4);
+                    finishdate = cursor.getString(5);
 
-                Log.d("carID", "" + carId);
+                    Log.d("carID", "" + carId);
+                    Log.d("startdateindb", "" + startdate);
+                    Log.d("finishdateindb", "" + finishdate);
+
+
+                    Log.d("start", "" + startDate);
+                    Log.d("finish", "" + finishDate);
+
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                    try {
+                        Date DBstartdate = simpleDateFormat.parse(startdate);
+                        Date DBfinishdate = simpleDateFormat.parse(finishdate);
+                        Date Userstartdate = simpleDateFormat.parse(startDate);
+                        Date Userfinishdate = simpleDateFormat.parse(finishDate);
+
+                        boolean userstart_after_dbfinish = Userstartdate.after(DBfinishdate);
+                        boolean userfinish_before_dbstart = Userfinishdate.before(DBstartdate);
+                        boolean userfinish_equal_dbstart = Userfinishdate.equals(DBstartdate);
+                        boolean userstart_equal_dbfinish = Userstartdate.equals(DBfinishdate);
+
+                        boolean result = userstart_after_dbfinish && userfinish_before_dbstart || userfinish_equal_dbstart || userstart_equal_dbfinish;
+
+                        Log.d("result", String.valueOf(result));
+                        return  result;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                /*Log.d("carID", "" + carId);
                 Log.d("start", "" + startdate);
-                Log.d("finish", "" + finishDate);
-
-                return "found";
-
+                Log.d("finish", "" + finishdate);*/
 
             } while (cursor.moveToNext());
         }
-        return "not";
+        return false;
 
     }
+
 }
 

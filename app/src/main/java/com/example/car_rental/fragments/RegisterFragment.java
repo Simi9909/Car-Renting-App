@@ -16,6 +16,7 @@ import com.example.car_rental.R;
 import com.example.car_rental.model.User;
 import com.example.car_rental.utils.DBHelper;
 
+import static com.example.car_rental.utils.Validation.validPassword;
 import static com.example.car_rental.utils.Validation.validateEmail;
 import static com.example.car_rental.utils.Validation.validateFields;
 
@@ -68,8 +69,8 @@ public class RegisterFragment extends Fragment {
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
         String idcard = etIdCardNumber.getText().toString();
-        String drivinglicence = etDrivingLicenceNumber.getText().toString();
-        Integer phone = Integer.valueOf(etPhoneNumber.getText().toString());
+        //String drivinglicence = etDrivingLicenceNumber.getText().toString();
+        String phone = etPhoneNumber.getText().toString();
         String address = etAddress.getText().toString();
         String password = etPassword.getText().toString();
         String password2 = etPassword2.getText().toString();
@@ -100,9 +101,9 @@ public class RegisterFragment extends Fragment {
             etIdCardNumber.setError("Id card field can not be empty");
         }
 
-        if (!validateFields(String.valueOf(phone))) {
+        if (!validateFields(phone)) {
             ok = false;
-            etPhoneNumber.setError("Name field can not be empty");
+            etPhoneNumber.setError("Phone number field can not be empty");
         }
 
         if (!validateFields(address)) {
@@ -117,13 +118,24 @@ public class RegisterFragment extends Fragment {
 
         if (!validateFields(password2)) {
             ok = false;
-            etPassword2.setError("Driving licence field can not be empty");
+            etPassword2.setError("Password field can not be empty");
         }
 
         if (!password.equals(password2)) {
             ok = false;
             etPassword.setError("Passwords need to match");
             etPassword2.setError("Passwords need to match");
+        }
+
+        if (!validPassword(password)) {
+            ok = false;
+            etPassword.setError("Entered password is to week!\n" +
+                    "Password must contain: \n" +
+                    "at least one digit [0-9].\n" +
+                    "at least one lowercase Latin character [a-z].\n" +
+                    "at least one uppercase Latin character [A-Z].\n" +
+                    "at least one special character like ! @ # & ( ).\n" +
+                    "a length of at least 8 characters and a maximum of 20 characters.");
         }
 
         if (ok) {
