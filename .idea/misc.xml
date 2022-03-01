@@ -10,8 +10,8 @@
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/driver_adapter_layout.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/driver_adapter_view_layout.xml" value="0.13592919895107308" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/dropdownmenu.xml" value="0.5692035206076185" />
-        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_add_driver.xml" value="0.1572052401746725" />
-        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_add_new_car.xml" value="0.1" />
+        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_add_driver.xml" value="0.21238937336105165" />
+        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_add_new_car.xml" value="0.21238937336105165" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_admin.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_car_options.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_car_types.xml" value="0.25" />
@@ -23,7 +23,7 @@
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/fragment_selection.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/loginfragment.xml" value="0.1" />
         <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/registerfragment.xml" value="0.1" />
-        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/rent_car_view_layout.xml" value="0.1" />
+        <entry key="..\:/Users/tamas/AndroidStudioProjects/Car_Rental/app/src/main/res/layout/rent_car_view_layout.xml" value="0.21238937336105165" />
       </map>
     </option>
   </component>

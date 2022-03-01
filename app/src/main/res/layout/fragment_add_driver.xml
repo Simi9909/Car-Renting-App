@@ -23,83 +23,149 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="@string/driver_name"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <EditText
                 android:id="@+id/et_driver_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="40sp"
                 android:autofillHints="Name..."
-                android:hint="Name"
+                android:background="@null"
+                android:ems="10"
+                android:hint="@string/driver_name"
                 android:inputType="textPersonName"
-                android:minWidth="250sp"
-                android:minHeight="50sp" />
+                android:minHeight="48sp"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="@string/identity_card_number"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_driver_id_card_number"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10sp"
                 android:autofillHints="ID card number..."
+                android:background="@null"
+                android:ems="10"
                 android:hint="@string/id_card_number"
                 android:inputType="textPersonName"
-                android:minWidth="250sp"
-                android:minHeight="50sp"
+                android:minHeight="48sp"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp"
                 tools:ignore="TextFields" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="@string/driving_licence_number"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_drivers_driving_licence_number"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10sp"
                 android:autofillHints="Driving licence number..."
+                android:background="@null"
                 android:hint="@string/driving_licence_number"
                 android:inputType="textPersonName"
-                android:minWidth="250sp"
-                android:minHeight="50sp" />
+                android:minHeight="48sp"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="@string/phone_number"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_driver_phone_number"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10sp"
                 android:autofillHints="Phone number..."
+                android:background="@null"
                 android:hint="@string/phone_number"
                 android:inputType="phone"
-                android:minWidth="250sp"
-                android:minHeight="50sp" />
+                android:minHeight="48sp"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:paddingHorizontal="30sp"
+                android:text="@string/address"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_drivers_address"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10sp"
                 android:autofillHints="Address..."
+                android:background="@null"
                 android:hint="@string/address"
                 android:inputType="textPostalAddress"
-                android:minWidth="250sp"
-                android:minHeight="50sp" />
+                android:minHeight="48sp"
+                android:paddingHorizontal="30sp"
+                android:textSize="20sp" />
 
-            <Switch
-                android:id="@+id/sw_availability_driver"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:minHeight="48dp"
-                android:text="Availability"
-                android:layout_gravity="center"/>
+                android:orientation="horizontal"
+                android:paddingHorizontal="30sp"
+                android:layout_marginTop="10sp">
+
+                <Switch
+                    android:id="@+id/sw_availability_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="15sp"
+                    android:text="@string/not_available"
+                    android:textSize="20sp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="15sp"
+                    android:text="@string/available"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_save_driver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30sp"
-                android:text="@string/save"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="15sp"
+                android:text="@string/save" />
         </LinearLayout>
     </ScrollView>
 
