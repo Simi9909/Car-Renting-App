@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 
 import androidx.annotation.LongDef;
@@ -17,6 +20,8 @@ import com.example.car_rental.model.Driver;
 import com.example.car_rental.model.RentedCars;
 import com.example.car_rental.model.User;
 
+import java.io.ByteArrayInputStream;
+import java.sql.Blob;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CARS_IN_RENT_TABLE = "CARS_IN_RENT_TABLE";
     public static final String COLUMN_RENT_START_TIME = "RENT_START_TIME";
     public static final String COLUMN_RENT_FINISH_TIME = "RENT_FINISH_TIME";
+    private static final String COLUMN_CAR_IMAGE = "CAR_IMAGE";
 
     SQLiteDatabase databaseWrite;
     ContentValues contentValues;
@@ -97,7 +103,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_CAR_TYPE + " TEXT, "
                 + COLUMN_CAR_PRICE + " INTEGER, "
                 + COLUMN_CAR_EQUIPMENT + " TEXT, "
-                + COLUMN_CAR_AVAILABILITY + " BOOL)";
+                + COLUMN_CAR_AVAILABILITY + " BOOL, "
+                + COLUMN_CAR_IMAGE + " BLOB)";
 
         sqLiteDatabase.execSQL(createTableCars);
 
@@ -170,6 +177,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_CAR_PRICE, cars.getPrice());
         contentValues.put(COLUMN_CAR_EQUIPMENT, cars.getEquipment());
         contentValues.put(COLUMN_CAR_AVAILABILITY, cars.getAvailable());
+        contentValues.put(COLUMN_CAR_IMAGE, cars.getCarImage());
 
         long insert = databaseWrite.insert(CARS_TABLE, null, contentValues);
 
@@ -199,7 +207,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery(query, null);
-
+        ImageView imageView = new ImageView(context);
         if (cursor.moveToFirst()) {
             do {
                 int carID = cursor.getInt(0);
@@ -210,7 +218,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 String carEquipment = cursor.getString(5);
                 boolean carAvailability = cursor.getInt(6) == 1;
 
-                Cars car = new Cars(carID, carManufacturer, carModel, carType, carPrice, carEquipment, carAvailability);
+                byte[] carImage = cursor.getBlob(7);
+
+                if (carImage != null) {
+                    imageView.setImageBitmap(BitmapFactory.decodeByteArray(carImage, 0, carImage.length));
+                }
+                Cars car = new Cars(carID, carManufacturer, carModel, carType, carPrice, carEquipment, carAvailability, imageView);
                 returnList.add(car);
             } while (cursor.moveToNext());
         } else {
@@ -230,7 +243,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(query, null);
 
         String[] fromFieldNames = new String[]{
-                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY
+                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY, COLUMN_CAR_IMAGE
         };
 
         int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
@@ -254,7 +267,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(query, null);
 
         String[] fromFieldNames = new String[]{
-                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY
+                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY, COLUMN_CAR_IMAGE
         };
 
         int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
@@ -271,14 +284,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public SimpleCursorAdapter populateListViewFromDBAdmin(String selectionvalue) {
 
-        String query = "SELECT rowid _id,* FROM " + CARS_TABLE;
+        String query = "SELECT rowid _id,* FROM " + CARS_TABLE + " WHERE " + COLUMN_CAR_TYPE + " = '" + selectionvalue + "'";
 
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery(query, null);
 
         String[] fromFieldNames = new String[]{
-                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY
+                COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY, COLUMN_CAR_IMAGE
         };
 
         int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};

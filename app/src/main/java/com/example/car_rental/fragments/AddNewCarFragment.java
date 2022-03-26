@@ -2,6 +2,9 @@ package com.example.car_rental.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -29,6 +33,9 @@ import com.example.car_rental.utils.DBHelper;
 
 
 import static com.example.car_rental.utils.Validation.validateFields;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class AddNewCarFragment extends Fragment {
 
@@ -81,22 +88,49 @@ public class AddNewCarFragment extends Fragment {
         availabilitySwitch2 = view.findViewById(R.id.sw_availability);
 
         selectImage = view.findViewById(R.id.selectimage);
-        selectImage.setOnClickListener(view12 -> openYourActivity());
+        selectImage.setOnClickListener(view12 -> openActivity());
     }
 
-    ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult(
+    ImageView testimage;
+    byte [] byteArray;
+    Uri image;
+    Bitmap carImage;
+    ActivityResultLauncher<Intent> launchActivity = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
-                    Uri image = data.getData();
+                    image = data.getData();
                     selectImage.setImageURI(image);
+
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContext().getContentResolver().query(
+                            image, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    cursor.close();
+                    try (ParcelFileDescriptor pfd = getContext().getContentResolver().openFileDescriptor(image, "r")) {
+                        if (pfd != null) {
+                            carImage = BitmapFactory.decodeFileDescriptor(pfd.getFileDescriptor());
+                        }
+                    } catch (IOException ex) {
+
+                    }
+
+                    selectImage.setImageBitmap(carImage);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    carImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byteArray = stream.toByteArray();
+
                 }
+
+
             });
 
-    public void openYourActivity() {
+    public void openActivity() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        launchSomeActivity.launch(intent);
+        launchActivity.launch(intent);
     }
 
     private void save() {
@@ -140,7 +174,8 @@ public class AddNewCarFragment extends Fragment {
                         carType,
                         Integer.parseInt(carPrice.getText().toString()),
                         carEquipment.getText().toString(),
-                        availabilitySwitch2.isChecked());
+                        availabilitySwitch2.isChecked(),
+                        byteArray);
 
                 Log.d("added", cars.toString());
             } catch (Exception e) {

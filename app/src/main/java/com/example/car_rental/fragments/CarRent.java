@@ -114,7 +114,7 @@ public class CarRent extends AppCompatActivity {
             Toast.makeText(this, "Car can not be rented for the set dates", Toast.LENGTH_SHORT).show();
         }
 
-        if (ok == true) {
+        if (ok) {
             Log.d("ok", String.valueOf(true));
             dbHelper.addCarToRentTable(carid, userid, driverid, startDate, finishDate);
             Log.d("rent", String.valueOf(dbHelper.addCarToRentTable(carid, userid, driverid, startDate, finishDate)));

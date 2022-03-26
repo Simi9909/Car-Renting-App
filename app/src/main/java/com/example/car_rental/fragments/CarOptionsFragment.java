@@ -86,7 +86,7 @@ public class CarOptionsFragment extends Fragment {
 
     private void populateListView(DBHelper dbHelper) {
 
-        carList = dbHelper.getSelectedCar(cartype);
+        //carList = dbHelper.getSelectedCar(cartype);
         simpleCursorAdapter = dbHelper.populateListViewFromDB(cartype);
         listView.setAdapter(simpleCursorAdapter);
 

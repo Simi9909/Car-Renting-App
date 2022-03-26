@@ -127,7 +127,7 @@ public class RegisterFragment extends Fragment {
             etPassword2.setError("Passwords need to match");
         }
 
-        if (!validPassword(password)) {
+        /*if (!validPassword(password)) {
             ok = false;
             etPassword.setError("Entered password is to week!\n" +
                     "Password must contain: \n" +
@@ -136,7 +136,7 @@ public class RegisterFragment extends Fragment {
                     "at least one uppercase Latin character [A-Z].\n" +
                     "at least one special character like ! @ # & ( ).\n" +
                     "a length of at least 8 characters and a maximum of 20 characters.");
-        }
+        }*/
 
         if (ok) {
             try {
