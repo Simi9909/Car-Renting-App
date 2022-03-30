@@ -1,19 +1,17 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.adminside;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import com.example.car_rental.MainActivity;
 import com.example.car_rental.R;
+import com.example.car_rental.fragments.adminside.AdminFragment;
+import com.example.car_rental.fragments.adminside.DriversListFragment;
 
 public class EditOrDeleteDriver extends AppCompatActivity {
 

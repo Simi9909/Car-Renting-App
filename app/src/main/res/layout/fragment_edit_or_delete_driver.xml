@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    tools:context=".fragments.EditOrDeleteDriver">
+    tools:context=".fragments.adminside.EditOrDeleteDriver">
 
     <TextView
         android:id="@+id/text_title"
@@ -34,10 +34,10 @@
             android:textSize="25sp" />
 
         <EditText
-            android:autofillHints="@string/driver_name"
             android:id="@+id/ed_driver_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/driver_name"
             android:background="@null"
             android:hint="@string/driver_name"
             android:inputType="textPersonName"
@@ -60,10 +60,10 @@
             android:textSize="25sp" />
 
         <EditText
-            android:autofillHints="@string/id_card_numbe"
             android:id="@+id/ed_driver_id_card_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/id_card_numbe"
             android:background="@null"
             android:hint="@string/id_card_numbe"
             android:inputType="textPersonName"
@@ -87,10 +87,10 @@
             android:textSize="25sp" />
 
         <EditText
-            android:autofillHints="@string/phone_number"
             android:id="@+id/ed_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/phone_number"
             android:background="@null"
             android:hint="@string/phone_number"
             android:inputType="phone"
@@ -113,10 +113,10 @@
             android:textSize="25sp" />
 
         <EditText
-            android:autofillHints="@string/driving_licence"
             android:id="@+id/ed_driver_licence_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/driving_licence"
             android:background="@null"
             android:hint="@string/driving_licence"
             android:inputType="phone"
@@ -139,10 +139,10 @@
             android:textSize="25sp" />
 
         <EditText
-            android:autofillHints="@string/address"
             android:id="@+id/ed_driver_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/address"
             android:background="@null"
             android:hint="@string/address"
             android:inputType="phone"
@@ -165,8 +165,8 @@
             android:layout_gravity="center"
             android:minHeight="48dp"
             android:text="@string/not_available"
-            android:textSize="25sp"
             android:textColor="@color/black"
+            android:textSize="25sp"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <TextView
@@ -190,16 +190,22 @@
             android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20sp"
+            android:backgroundTint="#25D62C"
             android:text="@string/save"
-            android:textSize="25sp" />
+            android:textColor="#151515"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_delete_driver"
             android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20sp"
+            android:backgroundTint="#FF0000"
             android:text="@string/delete"
-            android:textSize="25sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

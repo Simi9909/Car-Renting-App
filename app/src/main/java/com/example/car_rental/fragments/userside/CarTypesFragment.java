@@ -1,4 +1,4 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.userside;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;

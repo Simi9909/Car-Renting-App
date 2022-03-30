@@ -1,4 +1,4 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.adminside;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -85,14 +85,14 @@ public class AdminFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private void goToShowSelectedCategory() {
 
-        SelectionFragment selectionFragment = new SelectionFragment();
+        CarsListFragment carsListFragment = new CarsListFragment();
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragmentFrame, selectionFragment)
+                .replace(R.id.fragmentFrame, carsListFragment)
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
 
-        selectionFragment.setArguments(bundle);
+        carsListFragment.setArguments(bundle);
         bundle.putString("bundleKey2", valueFormSpinner);
 
     }

@@ -1,4 +1,4 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.adminside;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,7 +18,7 @@ import com.example.car_rental.R;
 import com.example.car_rental.utils.DBHelper;
 
 
-public class SelectionFragment extends Fragment {
+public class CarsListFragment extends Fragment {
 
     String selectionvalue;
     static DBHelper dbHelper;
@@ -89,7 +89,7 @@ public class SelectionFragment extends Fragment {
         String equipment = cursor.getString(6);
         String available = cursor.getString(7);
 
-        Intent intent = new Intent(getActivity(), EditOrDelete.class);
+        Intent intent = new Intent(getActivity(), EditOrDeleteCar.class);
         intent.putExtra("intent_id", id);
         intent.putExtra("manufacturer", manufacturer);
         intent.putExtra("model", model);

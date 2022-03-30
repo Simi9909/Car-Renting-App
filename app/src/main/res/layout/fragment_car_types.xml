@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.CarTypesFragment">
+    tools:context=".fragments.userside.CarTypesFragment">
 
     <TextView
         android:id="@+id/title"
@@ -13,6 +13,7 @@
         android:layout_marginTop="30sp"
         android:gravity="center"
         android:text="@string/choose_vehicle_type"
+        android:textColor="@color/black"
         android:textSize="40sp" />
 
     <ScrollView
@@ -33,10 +34,10 @@
 
                 <ImageView
                     android:id="@+id/smallcarimage"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:clickable="true"
                     android:contentDescription="@string/small_car"
                     android:contextClickable="true"
                     android:maxWidth="275sp"
@@ -46,11 +47,12 @@
 
                 <TextView
                     android:id="@+id/small_car"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="@string/small_car"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -63,10 +65,10 @@
 
                 <ImageView
                     android:id="@+id/sedanimage"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:clickable="true"
                     android:contentDescription="@string/_4_5_door"
                     android:contextClickable="true"
                     android:maxWidth="275dp"
@@ -76,11 +78,12 @@
 
                 <TextView
                     android:id="@+id/sedan"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="@string/_4_5_door"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -93,10 +96,10 @@
 
                 <ImageView
                     android:id="@+id/suvimage"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:clickable="true"
                     android:contentDescription="@string/suv"
                     android:contextClickable="true"
                     android:maxWidth="275dp"
@@ -106,11 +109,12 @@
 
                 <TextView
                     android:id="@+id/suv"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="@string/suv"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -123,10 +127,10 @@
 
                 <ImageView
                     android:id="@+id/minivanimage"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:clickable="true"
                     android:contentDescription="@string/minivan"
                     android:contextClickable="true"
                     android:maxWidth="275dp"
@@ -136,11 +140,12 @@
 
                 <TextView
                     android:id="@+id/minivan"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="@string/minivan"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -153,10 +158,10 @@
 
                 <ImageView
                     android:id="@+id/busimage"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:clickable="true"
                     android:contentDescription="@string/bus"
                     android:contextClickable="true"
                     android:maxWidth="275dp"
@@ -166,11 +171,12 @@
 
                 <TextView
                     android:id="@+id/bus"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="@string/bus"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -183,10 +189,10 @@
 
                 <ImageView
                     android:id="@+id/bigbusimage"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:clickable="true"
                     android:contentDescription="@string/big_bus"
                     android:contextClickable="true"
                     android:maxWidth="275dp"
@@ -196,11 +202,12 @@
 
                 <TextView
                     android:id="@+id/bigbus"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:gravity="center"
                     android:text="@string/big_bus"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
 

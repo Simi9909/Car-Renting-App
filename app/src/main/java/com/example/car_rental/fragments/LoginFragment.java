@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.car_rental.R;
+import com.example.car_rental.fragments.adminside.AdminFragment;
+import com.example.car_rental.fragments.userside.CarTypesFragment;
 import com.example.car_rental.utils.DBHelper;
 
 public class LoginFragment extends Fragment {
@@ -56,7 +58,7 @@ public class LoginFragment extends Fragment {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
-        if (etEmail.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")) {
+        if (etEmail.getText().toString().equals("admin@admin.com") && etPassword.getText().toString().equals("admin")) {
             goToAdminPage();
         }
 

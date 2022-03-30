@@ -1,4 +1,4 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.adminside;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,8 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.car_rental.R;
+import com.example.car_rental.fragments.adminside.AdminFragment;
+import com.example.car_rental.fragments.adminside.CarsListFragment;
 
-public class EditOrDelete extends AppCompatActivity {
+public class EditOrDeleteCar extends AppCompatActivity {
 
     EditText etmanufacturer, etmodel, etprice, etequipment;
     Switch swavailable;
@@ -51,7 +53,7 @@ public class EditOrDelete extends AppCompatActivity {
 
     private void deleteCardFromDatabase() {
 
-        SelectionFragment.dbHelper.deleteCarData(id);
+        CarsListFragment.dbHelper.deleteCarData(id);
         getSupportFragmentManager().beginTransaction().add(android.R.id.content, new AdminFragment()).commit();
         finish();
     }
@@ -63,7 +65,7 @@ public class EditOrDelete extends AppCompatActivity {
         String price = etprice.getText().toString();
         String equipment = etequipment.getText().toString();
         Boolean available = swavailable.isChecked();
-        SelectionFragment.dbHelper.updateCarDataToNew(id, manufacturer, model, price, equipment, available);
+        CarsListFragment.dbHelper.updateCarDataToNew(id, manufacturer, model, price, equipment, available);
 
 
         getSupportFragmentManager().beginTransaction().add(android.R.id.content, new AdminFragment()).commit();

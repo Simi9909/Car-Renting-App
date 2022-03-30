@@ -65,6 +65,13 @@
     <string name="registration_page">Registration page</string>
     <string name="name_">Name:</string>
     <string name="id_card_number__">ID card number</string>
+    <string name="carimage">carImage</string>
+    <string name="admin_page">Admin Page</string>
+    <string name="choose_option">Choose option:</string>
+    <string name="show_selected">Show selected</string>
+    <string name="add_new_car">Add new car</string>
+    <string name="add_new_driver">Add new driver</string>
+    <string name="show_drivers">Show drivers</string>
     <string-array name="cartypes">
         <item>All</item>
         <item>Small car</item>

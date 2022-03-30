@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.AdminFragment">
+    tools:context=".fragments.adminside.AdminFragment">
 
 
     <TextView
@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15sp"
         android:gravity="center"
-        android:text="Admin Page"
+        android:text="@string/admin_page"
+        android:textColor="@color/black"
         android:textSize="40sp" />
 
     <TextView
@@ -22,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
         android:gravity="center"
-        android:text="Choose option:"
+        android:text="@string/choose_option"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <Spinner
@@ -38,7 +40,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10sp"
-        android:text="Show selected" />
+        android:backgroundTint="#014ADD"
+        android:text="@string/show_selected"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_add_car"
@@ -46,7 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30sp"
-        android:text="Add new car" />
+        android:backgroundTint="#014ADD"
+        android:text="@string/add_new_car"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_add_driver"
@@ -54,7 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30sp"
-        android:text="Add new driver" />
+        android:backgroundTint="#014ADD"
+        android:text="@string/add_new_driver"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_show_drivers"
@@ -62,6 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30sp"
-        android:text="Show drivers" />
+        android:backgroundTint="#014ADD"
+        android:text="@string/show_drivers"
+        android:textStyle="bold" />
 
 </LinearLayout>

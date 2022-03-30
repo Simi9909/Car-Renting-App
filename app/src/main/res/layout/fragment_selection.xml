@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SelectionFragment"
-    android:orientation="horizontal"
     android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:focusableInTouchMode="false"
+    android:orientation="horizontal"
+    tools:context=".fragments.adminside.CarsListFragment">
 
     <ListView
         android:id="@+id/lv_car"

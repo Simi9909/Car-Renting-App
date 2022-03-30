@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.AddNewCarFragment">
+    tools:context=".fragments.adminside.AddNewCarFragment">
 
     <TextView
         android:id="@+id/textView3"
@@ -13,8 +13,8 @@
         android:layout_marginTop="5sp"
         android:gravity="center"
         android:text="@string/add_new_vehicle"
-        android:textSize="40sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="40sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,9 +38,9 @@
                 android:id="@+id/carmanufacturer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/manufacturer"
                 android:background="@null"
                 android:ems="10"
-                android:autofillHints="@string/manufacturer"
                 android:hint="@string/manufacturer"
                 android:inputType="text"
                 android:minHeight="48dp"
@@ -60,9 +60,9 @@
                 android:id="@+id/carmodel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="Enter car model"
                 android:background="@null"
                 android:ems="10"
-                android:autofillHints="Enter car model"
                 android:hint="@string/model"
                 android:inputType="text"
                 android:minHeight="48dp"
@@ -91,12 +91,12 @@
                 android:id="@+id/carprice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/price"
                 android:background="@null"
                 android:ems="10"
-                android:minHeight="48sp"
-                android:autofillHints="@string/price"
                 android:hint="@string/price"
                 android:inputType="number"
+                android:minHeight="48sp"
                 android:paddingHorizontal="30sp"
                 android:textSize="20sp" />
 
@@ -113,21 +113,21 @@
                 android:id="@+id/carequipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/equipment"
                 android:background="@null"
                 android:ems="10"
-                android:minHeight="48sp"
-                android:autofillHints="@string/equipment"
                 android:hint="@string/equipment"
                 android:inputType="textMultiLine"
+                android:minHeight="48sp"
                 android:paddingHorizontal="30sp"
                 android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
                 android:orientation="horizontal"
-                android:paddingHorizontal="30sp"
-                android:layout_marginTop="10sp">
+                android:paddingHorizontal="30sp">
 
                 <Switch
                     android:id="@+id/sw_availability"
@@ -159,11 +159,11 @@
 
             <ImageView
                 android:id="@+id/selectimage"
-                android:contentDescription="@string/car_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10sp"
+                android:contentDescription="@string/car_image"
                 android:src="@android:drawable/ic_menu_add" />
 
             <Button
@@ -172,7 +172,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15sp"
-                android:text="@string/save" />
+                android:backgroundTint="#25D62C"
+                android:text="@string/save"
+                android:textColor="#151515"
+                android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

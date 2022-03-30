@@ -1,4 +1,4 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.adminside;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.example.car_rental.R;
+import com.example.car_rental.fragments.RegisterFragment;
 import com.example.car_rental.model.Cars;
 import com.example.car_rental.utils.DBHelper;
 

@@ -1,4 +1,4 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.userside;
 
 import android.content.Intent;
 import android.database.Cursor;

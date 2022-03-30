@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="15sp">
 
     <TextView
         android:id="@+id/text_driver_id"

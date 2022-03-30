@@ -11,22 +11,15 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.Nullable;
 
 import com.example.car_rental.R;
 import com.example.car_rental.model.Cars;
 import com.example.car_rental.model.Driver;
-import com.example.car_rental.model.RentedCars;
 import com.example.car_rental.model.User;
 
-import java.io.ByteArrayInputStream;
-import java.sql.Blob;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -200,40 +193,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public List<Cars> getSelectedCar(String selectionvalue) {
-        List<Cars> returnList = new ArrayList<>();
-
-        String query = "SELECT * FROM " + CARS_TABLE + " WHERE " + COLUMN_CAR_TYPE + " = '" + selectionvalue + "'";
-
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery(query, null);
-        ImageView imageView = new ImageView(context);
-        if (cursor.moveToFirst()) {
-            do {
-                int carID = cursor.getInt(0);
-                String carManufacturer = cursor.getString(1);
-                String carModel = cursor.getString(2);
-                String carType = cursor.getString(3);
-                int carPrice = cursor.getInt(4);
-                String carEquipment = cursor.getString(5);
-                boolean carAvailability = cursor.getInt(6) == 1;
-
-                byte[] carImage = cursor.getBlob(7);
-
-                if (carImage != null) {
-                    imageView.setImageBitmap(BitmapFactory.decodeByteArray(carImage, 0, carImage.length));
-                }
-                Cars car = new Cars(carID, carManufacturer, carModel, carType, carPrice, carEquipment, carAvailability, imageView);
-                returnList.add(car);
-            } while (cursor.moveToNext());
-        } else {
-            Log.d("", "No car in database!");
-        }
-
-        cursor.close();
-        return returnList;
-    }
-
     public SimpleCursorAdapter populateListViewFromDB() {
 
         String query = "SELECT rowid _id,* FROM " + CARS_TABLE;
@@ -246,7 +205,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY, COLUMN_CAR_IMAGE
         };
 
-        int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
+        int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car, R.id.carImage};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 context,
                 R.layout.car_adapter_view_layout,
@@ -255,8 +214,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 toViewIds,
                 1
         );
+
+        SetImageViewInSimpleCursorAdapter(adapter);
         return adapter;
     }
+
 
     public SimpleCursorAdapter populateListViewFromDB(String type) {
 
@@ -270,7 +232,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY, COLUMN_CAR_IMAGE
         };
 
-        int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
+        int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car, R.id.carImage};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 context,
                 R.layout.car_adapter_view_layout_user,
@@ -279,6 +241,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 toViewIds,
                 1
         );
+
+        SetImageViewInSimpleCursorAdapter(adapter);
+
         return adapter;
     }
 
@@ -294,7 +259,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_CAR_ID, COLUMN_CAR_MANUFACTURER, COLUMN_CAR_MODEL, COLUMN_CAR_PRICE, COLUMN_CAR_EQUIPMENT, COLUMN_CAR_AVAILABILITY, COLUMN_CAR_IMAGE
         };
 
-        int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car};
+        int[] toViewIds = new int[]{R.id.text_id, R.id.text_manufacturer, R.id.text_model, R.id.text_price, R.id.text_equipment, R.id.switch_car, R.id.carImage};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 context,
                 R.layout.car_adapter_view_layout,
@@ -303,7 +268,31 @@ public class DBHelper extends SQLiteOpenHelper {
                 toViewIds,
                 1
         );
+
+        SetImageViewInSimpleCursorAdapter(adapter);
+
         return adapter;
+    }
+
+    private void SetImageViewInSimpleCursorAdapter(SimpleCursorAdapter adapter) {
+        adapter.setViewBinder((view, cursor1, columnIndex) -> {
+            if (view.getId() == R.id.carImage) {
+
+                byte[] iconByteArray = cursor1.getBlob(columnIndex);
+                ImageView iconImageView = (ImageView) view;
+                if (!(iconByteArray == null)) {
+
+                    Bitmap iconBitmap = BitmapFactory.decodeByteArray(iconByteArray, 0, iconByteArray.length);
+
+                    iconImageView.setImageBitmap(iconBitmap);
+                } else {
+                    iconImageView.setImageDrawable(context.getDrawable(R.drawable.no_image));
+                }
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     public void updateCarDataToNew(long id, String manufacturer, String model, String price, String equipment, Boolean available) {
@@ -452,7 +441,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery(query, null);
-        String  gotid;
+        String gotid;
         if (cursor.moveToNext()) {
             do {
                 gotid = cursor.getString(5);
@@ -467,8 +456,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Boolean checkIfCarIsAvailable(String id, String startDate, String finishDate) {
 
-        String carId, startdate, finishdate;
-        Boolean van = true;
+        boolean result = false;
 
         String queryRent = "SELECT rowid _id,* FROM "
                 + CARS_IN_RENT_TABLE
@@ -479,57 +467,81 @@ public class DBHelper extends SQLiteOpenHelper {
                 + CARS_TABLE + " . " + COLUMN_CAR_ID*/
                 + " WHERE " + COLUMN_CAR_ID + " = '" + id + "'";
 
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase database = this.getReadableDatabase();
 
         Cursor cursor = database.rawQuery(queryRent, null);
-        if (cursor.moveToNext()) {
-            Log.d("valami nem oke", "");
-            do {
-                carId = cursor.getString(1);
-                if (!carId.isEmpty()) {
-                    startdate = cursor.getString(4);
-                    finishdate = cursor.getString(5);
+        while (cursor.moveToNext()) {
 
-                    Log.d("carID", "" + carId);
-                    Log.d("startdateindb", "" + startdate);
-                    Log.d("finishdateindb", "" + finishdate);
+            String startdate = cursor.getString(4);
+            String finishdate = cursor.getString(5);
+
+            Log.d("carID", "" + id);
+            Log.d("startdateindb", "" + startdate);
+            Log.d("finishdateindb", "" + finishdate);
 
 
-                    Log.d("start", "" + startDate);
-                    Log.d("finish", "" + finishDate);
+            Log.d("start", "" + startDate);
+            Log.d("finish", "" + finishDate);
 
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                    try {
-                        Date DBstartdate = simpleDateFormat.parse(startdate);
-                        Date DBfinishdate = simpleDateFormat.parse(finishdate);
-                        Date Userstartdate = simpleDateFormat.parse(startDate);
-                        Date Userfinishdate = simpleDateFormat.parse(finishDate);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            try {
+                Date DBstartdate = simpleDateFormat.parse(startdate);
+                Date DBfinishdate = simpleDateFormat.parse(finishdate);
+                Date Userstartdate = simpleDateFormat.parse(startDate);
+                Date Userfinishdate = simpleDateFormat.parse(finishDate);
 
-                        boolean userstart_after_dbfinish = Userstartdate.after(DBfinishdate);
-                        boolean userfinish_before_dbstart = Userfinishdate.before(DBstartdate);
-                        boolean userfinish_equal_dbstart = Userfinishdate.equals(DBstartdate);
-                        boolean userstart_equal_dbfinish = Userstartdate.equals(DBfinishdate);
+                boolean userstart_after_dbfinish = Userstartdate.after(DBfinishdate);
+                boolean userfinish_before_dbstart = Userfinishdate.before(DBstartdate);
+                boolean userfinish_equal_dbstart = Userfinishdate.equals(DBstartdate);
+                boolean userstart_equal_dbfinish = Userstartdate.equals(DBfinishdate);
 
-                        boolean result = userstart_after_dbfinish && userfinish_before_dbstart || userfinish_equal_dbstart || userstart_equal_dbfinish;
+                result = userstart_after_dbfinish && userfinish_before_dbstart || userfinish_equal_dbstart || userstart_equal_dbfinish;
 
-                        Log.d("result", String.valueOf(result));
-                        return  result;
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                Log.d("result", String.valueOf(result));
+            } catch (Exception e) {
+                e.printStackTrace();
 
+            }
 
-                }
-
-                /*Log.d("carID", "" + carId);
-                Log.d("start", "" + startdate);
-                Log.d("finish", "" + finishdate);*/
-
-            } while (cursor.moveToNext());
         }
-        return false;
+        return result;
 
     }
 
+    public String getUserNameByID(int id) {
+        String query = "SELECT rowid _id,* FROM " + USERS_TABLE + " WHERE "
+                + COLUMN_USER_ID + " = '" + id + "'";
+
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery(query, null);
+        String username = null;
+        if (cursor.moveToNext()) {
+            do {
+                username = cursor.getString(2);
+            } while (cursor.moveToNext());
+        }
+        return username;
+
+    }
+
+    public String getCarDataByID(int carid) {
+        String query = "SELECT rowid _id,* FROM " + CARS_TABLE + " WHERE "
+                + COLUMN_CAR_ID + " = '" + carid + "'";
+
+        SQLiteDatabase database = this.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery(query, null);
+        String carManufacturer = null;
+        String carModel = null;
+        if (cursor.moveToNext()) {
+            do {
+                carManufacturer = cursor.getString(2);
+                carModel = cursor.getString(3);
+                Log.d("Driver id", carManufacturer);
+            } while (cursor.moveToNext());
+        }
+        return carManufacturer + " " + carModel;
+    }
 }
 

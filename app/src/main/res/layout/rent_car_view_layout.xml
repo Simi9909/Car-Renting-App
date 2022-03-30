@@ -189,7 +189,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10sp"
-                android:text="@string/rent" />
+                android:backgroundTint="#0022FF"
+                android:text="@string/rent"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

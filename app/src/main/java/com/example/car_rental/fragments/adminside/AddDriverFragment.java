@@ -1,4 +1,4 @@
-package com.example.car_rental.fragments;
+package com.example.car_rental.fragments.adminside;
 
 import static com.example.car_rental.utils.Validation.validateFields;
 
@@ -15,6 +15,7 @@ import android.widget.Switch;
 import androidx.fragment.app.Fragment;
 
 import com.example.car_rental.R;
+import com.example.car_rental.fragments.RegisterFragment;
 import com.example.car_rental.model.Driver;
 import com.example.car_rental.utils.DBHelper;
 

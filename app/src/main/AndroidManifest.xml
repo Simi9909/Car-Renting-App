@@ -21,18 +21,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.car_rental.fragments.EditOrDelete">
+            android:name="com.example.car_rental.fragments.adminside.EditOrDeleteCar">
         </activity>
         <activity
-            android:name="com.example.car_rental.fragments.EditOrDeleteDriver">
+            android:name="com.example.car_rental.fragments.adminside.EditOrDeleteDriver">
         </activity>
         <activity
-            android:name="com.example.car_rental.fragments.CarRent">
+            android:name="com.example.car_rental.fragments.userside.CarRent">
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 </manifest>
